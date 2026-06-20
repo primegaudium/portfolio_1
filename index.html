@@ -1,16 +1,45 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
-        content="Harsh Raj — ML Engineer, Full-Stack Developer & AI Researcher. B.Tech CSE at VIT-AP University." />
+        content="Harsh Raj — AI Engineer, Full-Stack Developer & Researcher. B.Tech CSE at VIT-AP University." />
     <meta name="author" content="Harsh Raj" />
+    <link rel="canonical" href="https://portfolio-1-harsh.vercel.app/" />
     <meta property="og:title" content="Harsh Raj — Portfolio" />
-    <meta property="og:description" content="ML Engineer · Full-Stack Developer · AI Researcher" />
+    <meta property="og:description" content="AI Engineer · Full-Stack Developer · Researcher" />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/images/slide-01-hero.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Harsh Raj — Portfolio" />
+    <meta name="twitter:description" content="AI Engineer · Full-Stack Developer · Researcher" />
+    <meta name="twitter:image" content="assets/images/slide-01-hero.png" />
     <title>Harsh Raj — Portfolio</title>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Harsh Raj",
+      "jobTitle": "AI Engineer & Full-Stack Developer",
+      "email": "mailto:myselfharshr@gmail.com",
+      "telephone": "+91-92634-01358",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Jamshedpur",
+        "addressRegion": "Jharkhand",
+        "addressCountry": "IN"
+      },
+      "alumniOf": "VIT-AP University",
+      "url": "https://portfolio-1-harsh.vercel.app/",
+      "sameAs": [
+        "https://github.com/primetree2",
+        "https://linkedin.com/in/harsh-raj-820117173"
+      ]
+    }
+    </script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css" />
@@ -78,6 +107,18 @@
        ══════════════════════════════════════ -->
     <main class="slider-wrapper" id="sliderWrapper">
 
+        <noscript>
+            <div style="position:fixed;inset:0;z-index:9999;background:#000;color:#fff;padding:2rem;overflow:auto;font-family:sans-serif;">
+                <h1>Harsh Raj</h1>
+                <p>AI Engineer · Full-Stack Developer · Researcher — B.Tech CSE, VIT-AP University (2026).</p>
+                <p>This interactive portfolio needs JavaScript. Reach me at
+                    <a style="color:#fff" href="mailto:myselfharshr@gmail.com">myselfharshr@gmail.com</a>,
+                    <a style="color:#fff" href="https://github.com/primetree2">GitHub</a>, or
+                    <a style="color:#fff" href="https://linkedin.com/in/harsh-raj-820117173">LinkedIn</a>.
+                </p>
+            </div>
+        </noscript>
+
         <!-- WebGL canvas — owned by THREE.js / renderer.js -->
         <canvas class="webgl-canvas"></canvas>
 
@@ -123,6 +164,7 @@
                 <div class="projects-left">
                     <h2 class="projects-headline" id="projects-headline"></h2>
                     <p class="projects-count" id="projects-count"></p>
+                    <div class="research-block" id="projects-research"></div>
                 </div>
                 <div class="v-rule" aria-hidden="true"></div>
                 <div class="glass-panel projects-right" id="projects-list"></div>
