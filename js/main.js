@@ -28,6 +28,25 @@ window.addEventListener("load", async () => {
     const bootStartTime = performance.now();
     console.log("🚀 Portfolio loading started...");
 
+    // Detect WebGL support up front so we can degrade gracefully.
+    const supportsWebGL = (() => {
+        try {
+            const c = document.createElement("canvas");
+            return !!(window.WebGLRenderingContext &&
+                (c.getContext("webgl") || c.getContext("experimental-webgl")));
+        } catch (e) {
+            return false;
+        }
+    })();
+
+    // Always reveal the slide content, even if the WebGL background never loads.
+    // This guarantees the portfolio text is readable on any device.
+    const revealContent = () => {
+        const wrapper = document.querySelector(".slider-wrapper");
+        if (wrapper) wrapper.classList.add("loaded");
+        document.getElementById("preloader-overlay")?.remove();
+    };
+
     // 0 — Initialize accessibility features
     console.log("♿ Initializing accessibility...");
     accessibilityManager.initialize();
@@ -58,6 +77,16 @@ window.addEventListener("load", async () => {
     console.log("⏳ Starting preloader...");
     const loadingManager = new SliderLoadingManager();
     const loadStartTime = Date.now();
+
+    // If WebGL is unavailable, skip the heavy renderer and show content now.
+    if (!supportsWebGL) {
+        console.warn("⚠️ WebGL unavailable — showing static content fallback.");
+        loadingManager.complete();
+        enableSlider();
+        revealContent();
+        accessibilityManager.announce("Portfolio loaded in reduced mode. Use arrow keys or space to navigate.");
+        return;
+    }
 
     // 8 — Initialise THREE.js renderer + load textures
     //     (heaviest async step — runs while preloader plays)
@@ -108,6 +137,8 @@ window.addEventListener("load", async () => {
         console.error("❌ Error during initialization:", error);
         console.error("Stack trace:", error.stack);
         loadingManager.complete();
+        // Guarantee the content is visible even after a fatal renderer error.
+        revealContent();
     }
 
 });

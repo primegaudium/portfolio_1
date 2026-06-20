@@ -91,9 +91,11 @@ python -m http.server 8000
 ```
 Then open `http://localhost:8000`
 
-### Option 2: Node.js HTTP Server
+### Option 2: Node.js (npm)
 ```bash
-npx http-server -p 8000
+npm install
+npm run dev      # static server on :8000
+npm run format   # format codebase with Prettier
 ```
 
 ### Option 3: VS Code Live Server
@@ -106,7 +108,7 @@ Install the "Live Server" extension and click "Go Live"
 - Safari (latest)
 - Mobile browsers (iOS Safari, Chrome Mobile)
 
-**Note**: WebGL support required
+**Note**: A WebGL-capable browser is recommended for the animated background. If WebGL is unavailable, the site degrades gracefully and still shows all content.
 
 ## ⚡ Performance Tips
 
