@@ -1,0 +1,268 @@
+/* ========================================
+   SLIDER.CSS — Harsh Raj Portfolio
+   WebGL canvas, navigation, counters,
+   help text, preloader & tweakpane styles.
+   Verbatim from licensed source + minor additions.
+   ======================================== */
+
+/* ────────────────────────────────────────
+   SLIDER WRAPPER
+   ──────────────────────────────────────── */
+.slider-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    /* Preloader fade-in state */
+    opacity: 0;
+    transition: opacity 1.5s ease-in;
+    pointer-events: none;
+}
+
+.slider-wrapper.loaded {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ────────────────────────────────────────
+   WEBGL CANVAS
+   ──────────────────────────────────────── */
+.webgl-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: var(--z-canvas);
+}
+
+/* ────────────────────────────────────────
+   SLIDE COUNTER — current (middle left)
+   ──────────────────────────────────────── */
+.slide-number {
+    display: none;
+}
+
+/* ────────────────────────────────────────
+   SLIDE COUNTER — total (middle right)
+   ──────────────────────────────────────── */
+.slide-total {
+    display: none;
+}
+
+/* ────────────────────────────────────────
+   HELP TEXT — top left
+   ──────────────────────────────────────── */
+.help-text {
+    position: absolute;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    z-index: var(--z-help);
+    letter-spacing: 0.5px;
+    pointer-events: none;
+    user-select: none;
+    /* Fade out slightly so it doesn't fight with overlay content */
+    opacity: 0.7;
+    transition: opacity var(--transition-slow);
+}
+
+.slider-wrapper:hover .help-text {
+    opacity: 1;
+}
+
+/* ────────────────────────────────────────
+   BOTTOM NAVIGATION
+   ──────────────────────────────────────── */
+.slides-navigation {
+    position: absolute;
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+    right: var(--spacing-md);
+    display: flex;
+    gap: 0;
+    z-index: var(--z-nav);
+    pointer-events: all;
+}
+
+.slide-nav-item {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    flex: 1;
+    border: none;
+    background: none;
+    transition: opacity var(--transition-base);
+}
+
+.slide-nav-item:hover {
+    opacity: 1;
+}
+
+/* ── Progress line ── */
+.slide-progress-line {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    margin-bottom: 8px;
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.slide-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--color-accent);
+    transition: width 0.1s ease, opacity 0.3s ease;
+    border-radius: 1px;
+}
+
+/* ── Nav title ── */
+.slide-nav-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    transition: color var(--transition-base);
+}
+
+.slide-nav-item.active .slide-nav-title {
+    color: var(--color-text);
+}
+
+.slide-nav-item.active .slide-progress-line {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ────────────────────────────────────────
+   TWEAKPANE PANEL OVERRIDES
+   ──────────────────────────────────────── */
+.tp-dfwv {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 1000 !important;
+    max-width: 320px !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: var(--radius-md) !important;
+}
+
+.tp-dfwv .tp-btnv_b {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    font-family: var(--font-mono) !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+.tp-dfwv .tp-btnv_b:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ────────────────────────────────────────
+   PRELOADER OVERLAY
+   ──────────────────────────────────────── */
+#preloader-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: var(--z-preloader);
+    transition: opacity 0.8s ease;
+}
+
+#preloader-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#preloader-canvas {
+    display: block;
+}
+
+.preloader-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.4);
+    animation: preloader-pulse 2s ease-in-out infinite;
+}
+
+@keyframes preloader-pulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 0.9;
+    }
+}
+
+/* ────────────────────────────────────────
+   RESPONSIVE
+   ──────────────────────────────────────── */
+@media (max-width: 768px) {
+    .slides-navigation {
+        bottom: var(--spacing-sm);
+        left: var(--spacing-sm);
+        right: var(--spacing-sm);
+    }
+
+    .slide-nav-item {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .slide-nav-title {
+        font-size: 9px;
+    }
+
+    .help-text {
+        top: var(--spacing-sm);
+        left: var(--spacing-sm);
+        font-size: 9px;
+    }
+
+    .slide-number {
+        left: var(--spacing-sm);
+        font-size: 11px;
+    }
+
+    .slide-total {
+        right: var(--spacing-sm);
+        font-size: 11px;
+    }
+
+    .tp-dfwv {
+        top: 10px !important;
+        right: 10px !important;
+        max-width: 260px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide-nav-title {
+        display: none;
+    }
+
+    .help-text {
+        display: none;
+    }
+}

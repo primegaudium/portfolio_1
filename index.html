@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Harsh Raj — ML Engineer, Full-Stack Developer & AI Researcher. B.Tech CSE at VIT-AP University." />
+    <meta name="author" content="Harsh Raj" />
+    <meta property="og:title" content="Harsh Raj — Portfolio" />
+    <meta property="og:description" content="ML Engineer · Full-Stack Developer · AI Researcher" />
+    <meta property="og:type" content="website" />
+    <title>Harsh Raj — Portfolio</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/slider.css" />
+    <link rel="stylesheet" href="css/overlay.css" />
+
+    <!-- GSAP (required by slider-core.js for transitions) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ══════════════════════════════════════
+       SVG GLASS DISPLACEMENT FILTER
+       Free to use — michaelwatts.me
+       Scale values reduced to 60/65/70
+       (vs original 150/160/170) for a
+       subtler effect suited to text panels.
+       ══════════════════════════════════════ -->
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute;pointer-events:none;overflow:hidden;">
+        <defs>
+            <filter id="glass-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%">
+
+                <feImage x="0" y="0" width="100%" height="100%" result="map"
+                    href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20336%2096%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22red%22%20x1%3D%22100%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%220%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23000%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22red%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22blue%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23000%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22blue%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22336%22%20height%3D%2296%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22336%22%20height%3D%2296%22%20rx%3D%2216%22%20fill%3D%22url(%23red)%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22336%22%20height%3D%2296%22%20rx%3D%2216%22%20fill%3D%22url(%23blue)%22%20style%3D%22mix-blend-mode%3Adifference%22%2F%3E%3Crect%20x%3D%223.36%22%20y%3D%223.36%22%20width%3D%22329.28%22%20height%3D%2289.28%22%20rx%3D%2216%22%20fill%3D%22hsl(0%200%25%2050%25%20%2F%200.93)%22%20style%3D%22filter%3Ablur(11px)%22%2F%3E%3C%2Fsvg%3E">
+                </feImage>
+
+                <!-- Red channel displaced -->
+                <feDisplacementMap in="SourceGraphic" in2="map" xChannelSelector="R" yChannelSelector="G"
+                    result="dispRed" scale="-60" />
+                <feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"
+                    result="red" />
+
+                <!-- Green channel displaced -->
+                <feDisplacementMap in="SourceGraphic" in2="map" xChannelSelector="R" yChannelSelector="G"
+                    result="dispGreen" scale="-65" />
+                <feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"
+                    result="green" />
+
+                <!-- Blue channel displaced -->
+                <feDisplacementMap in="SourceGraphic" in2="map" xChannelSelector="R" yChannelSelector="G"
+                    result="dispBlue" scale="-70" />
+                <feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                    result="blue" />
+
+                <!-- Merge RGB channels -->
+                <feBlend in="red" in2="green" mode="screen" result="rg" />
+                <feBlend in="rg" in2="blue" mode="screen" result="output" />
+                <feGaussianBlur in="output" stdDeviation="0.5" />
+
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- ══════════════════════════════════════
+       PRELOADER
+       ══════════════════════════════════════ -->
+    <div id="preloader-overlay" role="status" aria-label="Loading portfolio">
+        <canvas id="preloader-canvas" width="300" height="300"></canvas>
+        <span class="preloader-label">Loading</span>
+    </div>
+
+    <!-- ══════════════════════════════════════
+       MAIN SLIDER WRAPPER
+       ══════════════════════════════════════ -->
+    <main class="slider-wrapper" id="sliderWrapper">
+
+        <!-- WebGL canvas — owned by THREE.js / renderer.js -->
+        <canvas class="webgl-canvas"></canvas>
+
+        <!-- Slide counters (hidden via CSS) -->
+        <span class="slide-number" id="slideNumber" aria-live="polite">01</span>
+        <span class="slide-total" id="slideTotal">06</span>
+
+        <!-- Keyboard / interaction hint -->
+        <span class="help-text" aria-hidden="true">
+            H: Toggle Settings&nbsp;&nbsp;·&nbsp;&nbsp;Space / →: Next&nbsp;&nbsp;·&nbsp;&nbsp;←:
+            Previous&nbsp;&nbsp;·&nbsp;&nbsp;Click to Advance
+        </span>
+
+        <!-- ── SLIDE CONTENT OVERLAYS ── -->
+        <div class="slide-overlays" aria-hidden="true">
+
+            <!-- 01 · HERO — minimal, no glass panel -->
+            <section class="slide-overlay overlay--hero" data-slide="0">
+                <div class="hero-content">
+                    <p class="hero-eyebrow" id="hero-eyebrow"></p>
+                    <h1 class="hero-name" id="hero-name"></h1>
+                    <p class="hero-role" id="hero-role"></p>
+                    <p class="hero-tagline" id="hero-tagline"></p>
+                    <div class="hero-actions" id="hero-actions"></div>
+                </div>
+                <nav class="hero-socials" id="hero-socials"></nav>
+            </section>
+
+            <!-- 02 · ABOUT — glass panels on both columns -->
+            <section class="slide-overlay overlay--about" data-slide="1">
+                <div class="glass-panel about-left">
+                    <p class="overlay-eyebrow" id="about-eyebrow"></p>
+                    <h2 class="about-headline" id="about-headline"></h2>
+                    <p class="about-bio" id="about-bio"></p>
+                    <div class="about-education" id="about-education"></div>
+                </div>
+                <div class="v-rule" aria-hidden="true"></div>
+                <div class="glass-panel about-right" id="about-stats"></div>
+            </section>
+
+            <!-- 03 · PROJECTS — glass panel on cards column -->
+            <section class="slide-overlay overlay--projects" data-slide="2">
+                <div class="projects-left">
+                    <h2 class="projects-headline" id="projects-headline"></h2>
+                    <p class="projects-count" id="projects-count"></p>
+                </div>
+                <div class="v-rule" aria-hidden="true"></div>
+                <div class="glass-panel projects-right" id="projects-list"></div>
+            </section>
+
+            <!-- 04 · SKILLS — glass panels on both columns -->
+            <section class="slide-overlay overlay--skills" data-slide="3">
+                <div class="glass-panel skills-left">
+                    <p class="overlay-eyebrow" id="skills-eyebrow"></p>
+                    <h2 class="skills-headline" id="skills-headline"></h2>
+                    <div class="skill-categories" id="skill-categories"></div>
+                </div>
+                <div class="v-rule" aria-hidden="true"></div>
+                <div class="glass-panel skills-right">
+                    <p class="certs-label" id="certs-label"></p>
+                    <div class="cert-list" id="cert-list"></div>
+                </div>
+            </section>
+
+            <!-- 05 · LEADERSHIP — two glass panels -->
+            <section class="slide-overlay overlay--leadership" data-slide="4">
+
+                <!-- LEFT: LEADERSHIP -->
+                <div class="glass-panel leadership-left">
+                    <p class="overlay-eyebrow" id="leadership-eyebrow"></p>
+                    <h2 class="leadership-headline" id="leadership-headline"></h2>
+                    <div class="roles-list" id="roles-list"></div>
+                </div>
+
+                <div class="v-rule" aria-hidden="true"></div>
+
+                <!-- RIGHT: ACHIEVEMENT -->
+                <div class="glass-panel leadership-right">
+                    <p class="overlay-eyebrow">Achievement</p>
+                    <div class="achievement-badge" id="achievement-badge"></div>
+                </div>
+
+            </section>
+
+            <!-- 06 · CONTACT — minimal, no glass panel -->
+            <section class="slide-overlay overlay--contact" data-slide="5">
+                <div class="contact-content">
+                    <p class="contact-label" id="contact-label"></p>
+                    <h2 class="contact-headline" id="contact-headline"></h2>
+                    <p class="contact-subtext" id="contact-subtext"></p>
+                    <div class="contact-links" id="contact-links"></div>
+                </div>
+                <p class="contact-location" id="contact-location"></p>
+            </section>
+
+        </div>
+        <!-- /slide-overlays -->
+
+        <!-- Bottom navigation — generated by navigation.js -->
+        <nav class="slides-navigation" id="slidesNav" aria-label="Slide navigation"></nav>
+
+    </main>
+    <!-- /slider-wrapper -->
+
+    <script type="module" src="js/main.js"></script>
+
+</body>
+
+</html>

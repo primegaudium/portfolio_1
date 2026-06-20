@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test External Dependencies</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #fff; }
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        .testing { color: #fbbf24; }
+    </style>
+</head>
+<body>
+    <h1>Testing External Dependencies</h1>
+    <div id="log"></div>
+    
+    <script>
+        const log = document.getElementById('log');
+        
+        function addLog(message, type = 'testing') {
+            log.innerHTML += `<p class="${type}">${message}</p>`;
+        }
+        
+        // Test 1: GSAP
+        addLog('Testing GSAP from CDN...', 'testing');
+        const gsapScript = document.createElement('script');
+        gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+        gsapScript.onload = () => {
+            addLog('✓ GSAP loaded successfully', 'success');
+        };
+        gsapScript.onerror = () => {
+            addLog('✗ GSAP failed to load', 'error');
+        };
+        document.head.appendChild(gsapScript);
+        
+        // Test 2: THREE.js from esm.sh
+        addLog('Testing THREE.js from esm.sh...', 'testing');
+        import('https://esm.sh/three')
+            .then((THREE) => {
+                addLog(`✓ THREE.js loaded successfully (version: ${THREE.REVISION})`, 'success');
+                
+                // Test creating a basic scene
+                try {
+                    const scene = new THREE.Scene();
+                    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+                    addLog('✓ THREE.js Scene and Camera created successfully', 'success');
+                } catch (e) {
+                    addLog(`✗ THREE.js initialization error: ${e.message}`, 'error');
+                }
+            })
+            .catch((e) => {
+                addLog(`✗ THREE.js failed to load: ${e.message}`, 'error');
+                addLog('Trying alternative CDN...', 'testing');
+                
+                // Try alternative CDN
+                import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js')
+                    .then(() => {
+                        addLog('✓ THREE.js loaded from jsdelivr', 'success');
+                    })
+                    .catch((e2) => {
+                        addLog(`✗ Alternative CDN also failed: ${e2.message}`, 'error');
+                    });
+            });
+        
+        // Test 3: Check if modules work
+        addLog('Testing ES6 module support...', 'testing');
+        try {
+            const testModule = () => 'test';
+            addLog('✓ ES6 modules supported', 'success');
+        } catch (e) {
+            addLog(`✗ ES6 module error: ${e.message}`, 'error');
+        }
+        
+        // Test 4: Check WebGL support
+        addLog('Testing WebGL support...', 'testing');
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (gl) {
+            addLog('✓ WebGL is supported', 'success');
+        } else {
+            addLog('✗ WebGL is NOT supported', 'error');
+        }
+    </script>
+</body>
+</html>
