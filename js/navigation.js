@@ -163,6 +163,9 @@ const _buildHero = (o) => {
     // CTA buttons
     const actions = document.getElementById("hero-actions");
     if (actions && o.cta) {
+        const resumeBtn = o.resumeUrl
+            ? `<a class="hero-cta-secondary" href="${o.resumeUrl}" download target="_blank" rel="noopener noreferrer">Resume</a>`
+            : "";
         actions.innerHTML = `
       <button class="hero-cta-primary"   data-slide-target="${o.cta.primary.slideTarget}">
         ${o.cta.primary.label}
@@ -170,6 +173,7 @@ const _buildHero = (o) => {
       <button class="hero-cta-secondary" data-slide-target="${o.cta.secondary.slideTarget}">
         ${o.cta.secondary.label}
       </button>
+      ${resumeBtn}
     `;
     }
 
@@ -225,6 +229,15 @@ const _buildProjects = (o) => {
     _set("projects-headline", o.headline);
     _set("projects-count", `${o.projects.length} Projects`);
 
+    // Optional research highlight
+    const researchEl = document.getElementById("projects-research");
+    if (researchEl && o.research) {
+        researchEl.innerHTML = `
+        <p class="research-label">${o.research.title}</p>
+        <p class="research-heading">${o.research.heading}</p>
+        <p class="research-desc">${o.research.description}</p>`;
+    }
+
     const listEl = document.getElementById("projects-list");
     if (!listEl) return;
 
@@ -234,8 +247,14 @@ const _buildProjects = (o) => {
                 .map((t) => `<span class="tag">${t}</span>`)
                 .join("");
 
-            const linkHtml = p.url
+            const liveHtml = p.url
                 ? `<a href="${p.url}" class="overlay-link" target="_blank" rel="noopener noreferrer">Live</a>`
+                : "";
+            const repoHtml = p.repo
+                ? `<a href="${p.repo}" class="overlay-link" target="_blank" rel="noopener noreferrer">GitHub</a>`
+                : "";
+            const linkHtml = (liveHtml || repoHtml)
+                ? `<span class="project-links">${liveHtml}${repoHtml}</span>`
                 : `<span class="overlay-link" style="opacity:0.3;pointer-events:none;cursor:default">Hardware</span>`;
 
             return `
@@ -281,11 +300,16 @@ const _buildSkills = (o) => {
     if (certEl && o.certifications) {
         certEl.innerHTML = o.certifications
             .map(
-                (c) => `
+                (c) => {
+                    const nameHtml = c.url
+                        ? `<a href="${c.url}" class="cert-name cert-link" target="_blank" rel="noopener noreferrer">${c.name} \u2197</a>`
+                        : `<p class="cert-name">${c.name}</p>`;
+                    return `
         <div class="cert-item">
-          <p class="cert-name">${c.name}</p>
+          ${nameHtml}
           <p class="cert-issuer">${c.issuer}</p>
-        </div>`
+        </div>`;
+                }
             )
             .join("");
     }

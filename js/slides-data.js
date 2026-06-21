@@ -1,7 +1,8 @@
 // ========================================
 // SLIDES DATA — Harsh Raj Portfolio
-// Replace `media` paths with your actual dark abstract images
-// Dimensions: recommended 1920x1080 or similar landscape ratio
+// Single source of truth for all slide content.
+// Slide count is data-driven: counter, navigation,
+// and WebGL textures all derive from this array.
 // ========================================
 
 export const slides = [
@@ -14,8 +15,10 @@ export const slides = [
             type: "hero",
             eyebrow: "B.Tech CSE · VIT-AP University · 2026",
             headline: "Harsh Raj",
-            subheadline: "ML Engineer · Full-Stack Developer · AI Researcher",
-            tagline: "Building data-driven systems at the intersection of AI and the web.",
+            subheadline: "AI Engineer · Full-Stack Developer · Researcher",
+            tagline: "Building AI-powered applications, developer tools, and full-stack platforms.",
+            // Drop a PDF at this path to auto-enable the Resume button.
+            resumeUrl: "assets/Harsh-Raj-Resume.pdf",
             cta: {
                 primary: { label: "View Projects", slideTarget: 2 },
                 secondary: { label: "Contact Me", slideTarget: 5 }
@@ -37,12 +40,12 @@ export const slides = [
             type: "about",
             label: "About",
             headline: "Curious builder.\nAnalytical thinker.",
-            bio: "Final year CSE student at VIT-AP University with a CGPA of 8.52, specializing in Machine Learning, NLP, and full-stack web development. I thrive on building intelligent, data-driven applications — from AI symptom checkers to EMG-controlled prosthetic claws.",
+            bio: "Final-year CSE student at VIT-AP University with a CGPA of 8.56, focused on AI-powered applications, developer tools, and full-stack web platforms. Skilled in Python, JavaScript/TypeScript, React, FastAPI and PostgreSQL, with research experience in automated code refactoring and software quality evaluation.",
             highlights: [
-                { value: "8.52", label: "CGPA / 10" },
-                { value: "5+", label: "Live Projects" },
+                { value: "8.56", label: "CGPA / 10" },
+                { value: "6+", label: "Live Projects" },
                 { value: "2nd", label: "IIT-K Hackathon" },
-                { value: "3+", label: "Club Roles" }
+                { value: "7", label: "Certifications" }
             ],
             education: [
                 {
@@ -70,35 +73,36 @@ export const slides = [
             headline: "Things I've Built",
             projects: [
                 {
+                    name: "Argos",
+                    tagline: "Competitive Live Debate Platform",
+                    description: "Full-stack debate platform with 2–5 round competitive matches, AI evaluation across 4 scoring dimensions, detection of 10 logical fallacies, real-time multiplayer sync, Google OAuth, and Elo-based ranked matchmaking. 15+ API routes, 8 DB tables, daily AI-generated topics.",
+                    tech: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Drizzle ORM", "Gemini AI", "TailwindCSS", "Vercel"],
+                    url: "https://argos-indol.vercel.app",
+                    highlight: true
+                },
+                {
+                    name: "MergeIQ",
+                    tagline: "AI-Powered Pull Request Analyzer",
+                    description: "Chrome extension and GitHub App that auto-analyzes every PR with Gemini AI, returning Safe / Review Needed / Risky verdicts with risk flags, summaries, and suggested review questions. Posts analysis comments autonomously via webhook with zero manual interaction.",
+                    tech: ["Python", "FastAPI", "Chrome Extension (MV3)", "Gemini 2.5 Flash", "GitHub REST API", "PyJWT", "Railway"],
+                    url: "https://web-production-6f4dd.up.railway.app",
+                    repo: "https://github.com/primetree2/mergeiq",
+                    highlight: true
+                },
+                {
                     name: "HealthAssist",
                     tagline: "AI Symptom Checker & Health Companion",
-                    description: "Generates detailed symptom analyses with personalized advice. Integrates 4 key data-points across 5 levels of analysis.",
-                    tech: ["Python", "FastAPI", "React", "TailwindCSS", "Gemini AI", "PostgreSQL"],
-                    url: "#",
-                    highlight: true
+                    description: "Web app generating detailed symptom analyses with blood-report context-awareness, personalized advice, and precautions. Integrates 4 key data-points across 5 levels of analysis.",
+                    tech: ["Python", "FastAPI", "React", "TailwindCSS", "Google API", "PostgreSQL"],
+                    url: "https://health-assist-rose.vercel.app/",
+                    highlight: false
                 },
                 {
                     name: "CodeSage",
                     tagline: "AI Codebase Refactoring & Insight Generator",
-                    description: "Analyzes and refactors codebases using LLMs. Supports 15+ programming languages with actionable quality insights.",
-                    tech: ["Python", "Flask", "React", "OpenAI API", "Google Cloud"],
-                    url: "#",
-                    highlight: true
-                },
-                {
-                    name: "Smart Blood Analyzer",
-                    tagline: "Automated Blood Report Interpreter",
-                    description: "NLP-powered extraction of blood test parameters with rule-based condition prediction. Supports up to 100 health markers.",
-                    tech: ["Python", "NLP", "Flask", "Pandas", "JavaScript"],
-                    url: "#",
-                    highlight: false
-                },
-                {
-                    name: "TrueBlog",
-                    tagline: "E-Blogging Platform",
-                    description: "Full-stack blogging platform with rich-text editor, comment moderation, and responsive UI.",
-                    tech: ["React", "Node.js", "Express", "MongoDB", "Bootstrap"],
-                    url: "#",
+                    description: "AI code-base analysis and refactoring system improving code quality and maintainability using Gemini AI and other LLMs. Supports 15+ programming languages; cAST-based refactoring pipeline in development.",
+                    tech: ["Python", "Flask", "React", "TailwindCSS", "OpenAI API", "Google Cloud"],
+                    url: "https://codesage-724681386895.us-central1.run.app/",
                     highlight: false
                 },
                 {
@@ -109,7 +113,12 @@ export const slides = [
                     url: null,
                     highlight: false
                 }
-            ]
+            ],
+            research: {
+                title: "Research",
+                heading: "LLMs & Prompt Strategies for Automated Python Code Refactoring",
+                description: "Evaluated 4 frontier LLMs and 2 prompt-engineering strategies across 5 benchmark programs. Measured code-quality and documentation improvements using BLEU, ROUGE-L, and Pylint, achieving style-conformance scores of 9.2–9.7 / 10."
+            }
         }
     },
 
@@ -125,28 +134,33 @@ export const slides = [
             categories: [
                 {
                     name: "Languages",
-                    skills: ["Python", "JavaScript", "Java", "R", "SQL", "MATLAB", "HTML/CSS"]
+                    skills: ["Python", "Java", "JavaScript", "TypeScript", "SQL", "HTML/CSS"]
                 },
                 {
-                    name: "Web & Backend",
-                    skills: ["React", "Node.js", "Express", "MongoDB", "FastAPI", "Flask", "Bootstrap", "TailwindCSS"]
+                    name: "Frameworks & Libraries",
+                    skills: ["React", "Next.js", "FastAPI", "Flask", "TailwindCSS"]
                 },
                 {
-                    name: "Data & ML",
-                    skills: ["Pandas", "scikit-learn", "NLP", "Data Analysis", "Model Evaluation", "Generative AI"]
+                    name: "Databases",
+                    skills: ["PostgreSQL", "Supabase", "Drizzle ORM"]
                 },
                 {
-                    name: "Cloud & Tools",
-                    skills: ["AWS", "Google Cloud", "Git", "PostgreSQL", "Oracle OCI"]
+                    name: "Tools & Platforms",
+                    skills: ["Git", "GitHub", "AWS", "Vercel", "Railway", "Google Cloud", "N8N"]
+                },
+                {
+                    name: "AI / ML",
+                    skills: ["Machine Learning", "NLP", "Google API", "OpenAI API", "Prompt Engineering"]
                 }
             ],
             certifications: [
-                { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services" },
-                { name: "Oracle OCI Generative AI Professional", issuer: "Oracle" },
-                { name: "Oracle Certified Foundations Associate", issuer: "Oracle" },
-                { name: "MERN Full Stack", issuer: "Ethnus" },
-                { name: "Data Analysis in R", issuer: "DataCamp" },
-                { name: "JavaScript Essentials", issuer: "Cisco" }
+                { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", url: "https://github.com/primetree2/cisco-certificate/blob/main/AWS%20Certified%20Cloud%20Practitioner%20certificate.pdf" },
+                { name: "Oracle OCI Generative AI Professional", issuer: "Oracle", url: "https://github.com/primetree2/cisco-certificate/blob/main/eCertificate.pdf" },
+                { name: "Oracle Certified Foundations Associate", issuer: "Oracle", url: "https://github.com/primetree2/cisco-certificate/blob/main/oracle.pdf" },
+                { name: "MERN Full Stack", issuer: "Ethnus", url: "https://github.com/primetree2/cisco-certificate/blob/main/3G3GLRGN.pdf" },
+                { name: "Data Analysis in R", issuer: "DataCamp", url: "https://github.com/primetree2/cisco-certificate/blob/main/certificate%20(1)_merged.pdf" },
+                { name: "JavaScript Essentials", issuer: "Cisco", url: "https://github.com/primetree2/cisco-certificate/blob/main/22BCE7591_AP2023246000888_DA02.pdf" },
+                { name: "Networking Essentials", issuer: "Cisco", url: "https://github.com/primetree2/cisco-certificate/blob/main/cisco%20networking%20essectials.pdf" }
             ]
         }
     },
@@ -163,26 +177,20 @@ export const slides = [
             achievement: {
                 badge: "🏆 2nd Place",
                 event: "The Return Journey Hackathon",
-                organizer: "IIT Kanpur"
+                organizer: "GDSC, IIT-Kanpur"
             },
             roles: [
-                {
-                    title: "Joint Secretary",
-                    org: "Data Science Club, VIT-AP University",
-                    period: "Sep 2024 – Present",
-                    description: "Led workshops on data analysis, organized hackathon prep sessions, and coordinated speaker events."
-                },
                 {
                     title: "Manager",
                     org: "TEAM NEXT NEXUS — Prompt Engineering Club",
                     period: "Jul – Dec 2024",
-                    description: "Managed prompt engineering study groups and evaluated generative-AI mini-project submissions."
+                    description: "Led prompt-engineering study groups and reviewed generative-AI mini-project submissions, facilitating collaborative learning and technical discussions."
                 },
                 {
                     title: "Associate Manager",
                     org: "Madhya Bharat Association — Cultural Club",
                     period: "Jul – Dec 2024",
-                    description: "Oversaw logistics and team coordination for cultural events with 50+ participants."
+                    description: "Oversaw event logistics and team coordination for cultural events with 50+ participants."
                 }
             ]
         }
@@ -210,5 +218,4 @@ export const slides = [
 ];
 
 // ── Derived flat array for the WebGL slider (title + media only)
-// This is what slider-core.js expects
 export const slidesMeta = slides.map(({ title, media }) => ({ title, media }));
