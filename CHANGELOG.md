@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2026-06-25
+
+### 🔥 Complete Rebuild
+
+Replaced the heavy WebGL/THREE.js/GSAP slider with a fast, responsive,
+mobile-first static site. This fixes the long load times, lag, unresponsive
+links, overlapping cards/text and weak mobile support.
+
+#### Added
+- New single-page layout (`index.html`) with semantic Hero, About, Projects, Skills, Leadership and Contact sections
+- New `css/style.css`: CSS variables, glass cards, responsive grids, fluid `clamp()` typography
+- New `js/app.js`: gradient loading screen, mobile hamburger nav, scroll reveal and active-nav via `IntersectionObserver`
+- Animated CSS gradient backgrounds for Hero and Skills
+- Project thumbnails (lazy-loaded) on Argos, HealthAssist and CodeSage cards
+- `prefers-reduced-motion` support
+
+#### Fixed
+- Social and CTA buttons are now real `<a>` links and fully clickable
+- Corrected the Argos project link (`https://argos-indol.vercel.app/`)
+- Card/text alignment and overlap across all sections
+- Text visibility (all content now sits in cards)
+
+#### Removed
+- WebGL slider, shaders, liquid background, GSAP and all slider JS
+- Old `css/main.css`, `css/slider.css`, `css/overlay.css`
+- Unused `assets/videos/slide-04-skills.mp4`
+- Debug/test pages and stale slider-era docs
+
+---
+
 ## [2.0.0] - 2026-05-15
 
 ### 🎨 Visual Improvements

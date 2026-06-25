@@ -1,134 +1,75 @@
 # Harsh Raj - Portfolio Website
 
-A modern, interactive portfolio website featuring WebGL-powered transitions and glass morphism UI effects.
+A fast, responsive, mobile-first personal portfolio. Pure HTML, CSS and vanilla
+JavaScript with zero runtime dependencies.
 
 ## 🚀 Features
 
-- **WebGL Background Effects**: Stunning liquid glass transitions powered by THREE.js
-- **6 Interactive Sections**: Hero, About, Projects, Skills, Leadership, and Contact
-- **Glass Morphism UI**: Modern frosted glass panels with SVG displacement filters
-- **Smooth Animations**: GSAP-powered slide transitions
-- **Fully Responsive**: Optimized for desktop, tablet, and mobile devices
-- **Keyboard Navigation**: Space/Arrow keys for easy navigation
-- **Touch Support**: Swipe gestures for mobile devices
-- **Accessibility**: ARIA labels and semantic HTML
-- **Performance Optimized**: Lazy loading, debouncing, and efficient rendering
+- **Lightweight & fast**: No WebGL, no frameworks, no build step. One stylesheet + one small script.
+- **Loading screen**: Gradient `HR` monogram with a spinner ring.
+- **Six sections**: Hero, About, Projects, Skills, Leadership, and Contact.
+- **Glass-morphism cards**: Aligned, responsive grids — no overlap.
+- **Animated gradient backgrounds**: Hero and Skills use CSS gradient animation.
+- **Fully responsive**: Mobile hamburger nav drawer and fluid `clamp()` typography.
+- **Scroll reveal + active nav**: Powered by `IntersectionObserver`.
+- **Accessible**: Semantic HTML, ARIA labels, and `prefers-reduced-motion` support.
 
 ## 🛠️ Technologies Used
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **3D Graphics**: THREE.js
-- **Animations**: GSAP (GreenSock Animation Platform)
-- **Fonts**: PP Neue Montreal, PP Supply Mono, Cormorant Garamond
-- **Build**: No build process required - pure vanilla JavaScript
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+, vanilla)
+- **Fonts**: Space Grotesk, Inter (Google Fonts)
+- **Hosting**: Vercel (static)
+- **Build**: None required
 
 ## 📁 Project Structure
 
 ```
-├── index.html              # Main HTML file
+├── index.html          # Single-page site with all sections
 ├── css/
-│   ├── main.css           # Global styles and variables
-│   ├── overlay.css        # Overlay content styles
-│   └── slider.css         # Slider and navigation styles
+│   └── style.css       # All styles, variables, responsive rules
 ├── js/
-│   ├── main.js            # Entry point and initialization
-│   ├── preloader.js       # Loading animation
-│   ├── renderer.js        # THREE.js setup and rendering
-│   ├── shaders.js         # WebGL shader code
-│   ├── slider-config.js   # Configuration settings
-│   ├── slides-data.js     # Content data for all slides
-│   ├── navigation.js      # Navigation and overlay population
-│   ├── transitions.js     # Slide transitions and timing
-│   ├── events.js          # Event listeners
-│   ├── controls.js        # Visual effects controls (disabled)
-│   ├── liquid-bg.js       # Liquid background effects
-│   └── utils.js           # Utility functions
+│   └── app.js          # Preloader, mobile nav, scroll reveal, active nav
 └── assets/
-    ├── images/            # Slide background images
-    └── videos/            # Slide background videos
+    ├── images/         # Section images / og image
+    └── Harsh-Raj-Resume.pdf
 ```
 
 ## 🎨 Customization
 
-### Updating Content
+### Updating content
+Edit the section markup directly in `index.html` (projects, skills, certs,
+leadership and contact are plain HTML blocks).
 
-Edit `js/slides-data.js` to update:
-- Personal information
-- Projects
-- Skills
-- Certifications
-- Leadership roles
-- Contact information
-
-### Changing Colors
-
-Modify CSS variables in `css/main.css`:
+### Changing colors
+Modify the CSS variables at the top of `css/style.css`:
 ```css
 :root {
-    --color-bg: #000000;
-    --color-text: #ffffff;
-    --color-accent: #ffffff;
-    /* ... more variables */
-}
-```
-
-### Adjusting Transitions
-
-Edit `js/slider-config.js`:
-```javascript
-settings: {
-    transitionDuration: 2.5,  // Transition speed
-    autoSlideSpeed: 10000,    // Auto-advance timing
-    // ... more settings
+  --bg: #0a0a0f;
+  --text: #f2f2f5;
+  --accent: #7c5cff;
+  --accent-2: #00d4ff;
+  /* ... */
 }
 ```
 
 ## 🚀 Running Locally
 
-### Option 1: Python HTTP Server
+Any static server works, for example:
 ```bash
 python -m http.server 8000
+# or
+npm install && npm run dev   # static server on :8000
+npm run format               # format with Prettier
 ```
-Then open `http://localhost:8000`
-
-### Option 2: Node.js (npm)
-```bash
-npm install
-npm run dev      # static server on :8000
-npm run format   # format codebase with Prettier
-```
-
-### Option 3: VS Code Live Server
-Install the "Live Server" extension and click "Go Live"
+Then open `http://localhost:8000`.
 
 ## 📱 Browser Support
 
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-**Note**: A WebGL-capable browser is recommended for the animated background. If WebGL is unavailable, the site degrades gracefully and still shows all content.
-
-## ⚡ Performance Tips
-
-1. **Images**: Use optimized images (WebP format recommended)
-2. **Videos**: Compress videos and use appropriate codecs
-3. **Lazy Loading**: Images and videos load on demand
-4. **Reduced Motion**: Respects user's motion preferences
-
-## 🐛 Known Issues
-
-- Video loading may timeout on slow connections (fallback to placeholder)
-- Some older browsers may not support all CSS features
+Chrome/Edge, Firefox, Safari (latest) and mobile browsers (iOS Safari, Chrome Mobile).
 
 ## 📝 License
 
-This portfolio is based on a licensed slider component. The content and customizations are © 2026 Harsh Raj.
-
-## 🤝 Contributing
-
-This is a personal portfolio project. Feel free to fork and adapt for your own use!
+Content and code © 2026 Harsh Raj.
 
 ## 📧 Contact
 
