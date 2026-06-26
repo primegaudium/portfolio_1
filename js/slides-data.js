@@ -20,6 +20,10 @@ export const slides = [
                 primary: { label: "View Projects", slideTarget: 2 },
                 secondary: { label: "Contact Me", slideTarget: 5 }
             },
+            resume: {
+                label: "Download Resume",
+                url: "assets/resume_final.pdf"
+            },
             socials: [
                 { label: "GitHub", url: "https://github.com/primetree2" },
                 { label: "LinkedIn", url: "https://linkedin.com/in/harsh-raj-820117173" },

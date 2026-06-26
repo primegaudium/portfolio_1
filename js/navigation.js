@@ -143,13 +143,14 @@ const _buildHero = (o) => {
     const actions = document.getElementById("hero-actions");
     if (actions && o.cta) {
         actions.innerHTML = `
-      <button class="hero-cta-primary"   data-slide-target="${o.cta.primary.slideTarget}">
-        ${o.cta.primary.label}
-      </button>
-      <button class="hero-cta-secondary" data-slide-target="${o.cta.secondary.slideTarget}">
-        ${o.cta.secondary.label}
-      </button>
-    `;
+            <button class="hero-cta-primary"   data-slide-target="${o.cta.primary.slideTarget}">
+            ${o.cta.primary.label}
+            </button>
+            <button class="hero-cta-secondary" data-slide-target="${o.cta.secondary.slideTarget}">
+            ${o.cta.secondary.label}
+            </button>
+            ${o.resume ? `<a class="hero-cta-resume" href="${o.resume.url}" download target="_blank" rel="noopener">${o.resume.label}</a>` : ""}
+           `;
     }
 
     const socials = document.getElementById("hero-socials");

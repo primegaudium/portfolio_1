@@ -43,9 +43,37 @@ html {
 }
 
 .hero-cta-primary,
-.hero-cta-secondary {
+.hero-cta-secondary,
+.hero-cta-resume {
     font-size: 10px !important;
     padding: 10px 20px !important;
+}
+
+/* Resume download CTA — outlined link matching the secondary button. */
+.hero-cta-resume {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-family: var(--font-mono) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.12em !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 4px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    transition: background 0.2s, border-color 0.2s, color 0.2s !important;
+}
+
+.hero-cta-resume::before {
+    content: "↓" !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+}
+
+.hero-cta-resume:hover {
+    background: rgba(255, 255, 255, 0.14) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    color: #ffffff !important;
 }
 
 .hero-socials .overlay-link {

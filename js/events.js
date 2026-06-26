@@ -19,6 +19,15 @@ import {
     handleTouchEnd
 } from "./transitions.js";
 
+// ── Pointer capability ──
+// A "fine" pointer (mouse/trackpad) means PC-style click zones apply.
+// Touch/coarse-pointer devices keep tap-to-advance + swipe.
+const _hasFinePointer = () =>
+    window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+
+// Fraction of the viewport width treated as the "previous" zone (left side).
+const PREV_ZONE_RATIO = 0.35;
+
 // ────────────────────────────────────────
 // Shared advance logic — used by both
 // the wrapper listener and canvas fallback
@@ -28,6 +37,17 @@ const _tryAdvance = () => {
         stopAutoSlideTimer();
         quickResetProgress(currentSlideIndex);
         handleSlideChange();
+    }
+};
+
+// On PC: left zone → previous slide, right zone → next slide.
+const _clickNavigate = (clientX) => {
+    if (isTransitioning || !sliderEnabled) return;
+
+    if (clientX < window.innerWidth * PREV_ZONE_RATIO) {
+        navigatePrev();
+    } else {
+        navigateNext();
     }
 };
 
@@ -55,16 +75,25 @@ export const bindClick = () => {
         const link = e.target.closest("a[href]");
         if (link) return;
 
-        // ── Everything else (open space, text, panels) → advance slide ──
-        _tryAdvance();
+        // ── PC: click left/right half to go prev/next.
+        //    Touch: keep simple tap-to-advance. ──
+        if (_hasFinePointer()) {
+            _clickNavigate(e.clientX);
+        } else {
+            _tryAdvance();
+        }
+
     });
 
     // ── Canvas fallback: some overlay regions have pointer-events:none
     //    (e.g. .projects-left "Things I've Built" text), letting clicks
-    //    fall through to the canvas. Catch them here to still advance. ──
+    //    fall through to the canvas. Catch them here too. ──
     const canvas = document.querySelector(".webgl-canvas");
     if (canvas) {
-        canvas.addEventListener("click", () => _tryAdvance());
+        canvas.addEventListener("click", (e) => {
+            if (_hasFinePointer()) _clickNavigate(e.clientX);
+            else _tryAdvance();
+        });
     }
 };
 

@@ -592,37 +592,40 @@
 ───────────────────────────────────────── */
 @media (max-width: 768px) {
 
-    /* Inject a swipe hint via pseudo on the wrapper */
-    #sliderWrapper::after {
-        content: "← swipe →";
+    /* Swipe hint — only while the HERO slide is active, since the desktop
+       help bar (toggle/click/advance) is hidden on mobile. Loops gently
+       so a returning user still notices it. */
+    .overlay--hero.active::after {
+        content: "←  Swipe to explore  →";
         position: fixed;
-        bottom: 24px;
+        bottom: 26px;
         left: 50%;
         transform: translateX(-50%);
         font-family: var(--font-mono, monospace);
-        font-size: 9px;
-        letter-spacing: 0.2em;
+        font-size: 9.5px;
+        letter-spacing: 0.28em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.35);
+        color: rgba(255, 255, 255, 0.55);
+        text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
         pointer-events: none;
         z-index: 999;
-        animation: swipe-hint-fade 3.5s ease forwards;
-        animation-delay: 1.5s;
         opacity: 0;
+        animation: swipe-hint-loop 3.8s ease-in-out infinite;
+        animation-delay: 1.2s;
     }
 
-    @keyframes swipe-hint-fade {
+    @keyframes swipe-hint-loop {
         0% {
             opacity: 0;
             transform: translateX(-50%) translateY(4px);
         }
 
-        20% {
+        25% {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
 
-        75% {
+        70% {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
