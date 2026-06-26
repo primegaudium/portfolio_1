@@ -37,12 +37,12 @@ export const slides = [
             type: "about",
             label: "About",
             headline: "Curious builder.\nAnalytical thinker.",
-            bio: "Final-year CSE student at VIT-AP University (CGPA 8.56) building AI-powered applications, developer tools, and full-stack platforms. I work across Python, TypeScript, React, FastAPI, and PostgreSQL, with research experience in automated code refactoring and software-quality evaluation.",
+            bio: "Final-year Computer Science student at VIT-AP University (CGPA 8.56) developing AI-powered applications, developer tools, and full-stack web platforms. Skilled in Python, JavaScript/TypeScript, React, FastAPI, PostgreSQL, and cloud deployment, with research experience in automated code refactoring and software-quality evaluation.",
             highlights: [
                 { value: "8.56", label: "CGPA / 10" },
                 { value: "4+", label: "Live Projects" },
                 { value: "2nd", label: "IIT-K Hackathon" },
-                { value: "15+", label: "LLMs Researched" }
+                { value: "4", label: "Frontier LLMs Evaluated" }
             ],
             education: [
                 {
@@ -190,12 +190,16 @@ export const slides = [
         media: "assets/images/slide-05-leadership.jpg",
         overlay: {
             type: "leadership",
-            label: "Leadership & Achievements",
+            label: "Leadership, Research & Achievements",
             headline: "Beyond the Code",
             achievement: {
                 badge: "🏆 2nd Place",
                 event: "The Return Journey Hackathon",
                 organizer: "GDSC, IIT Kanpur"
+            },
+            research: {
+                title: "Performance Evaluation of LLMs & Prompt Strategies for Automated Python Code Refactoring",
+                description: "Evaluated 4 frontier LLMs and 2 prompt-engineering strategies for automated Python code refactoring across 5 benchmark programs. Measured code-quality and documentation improvements using BLEU, ROUGE-L and Pylint, achieving style-conformance scores of 9.2–9.7/10, and identified the most effective refactoring strategies."
             },
             roles: [
                 {
@@ -225,6 +229,8 @@ export const slides = [
             headline: "Let's Build\nSomething.",
             subtext: "Open to internships, collaborations, and interesting problems.",
             location: "Jamshedpur, Jharkhand, India",
+            languages: "English (Proficient) · Hindi (Native)",
+            interests: "AI Research · Number Theory · Art / Animation · Content Creation",
             links: [
                 { label: "myselfharshr@gmail.com", url: "mailto:myselfharshr@gmail.com", type: "email" },
                 { label: "github.com/primetree2", url: "https://github.com/primetree2", type: "github" },

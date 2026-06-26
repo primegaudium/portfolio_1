@@ -1,0 +1,25 @@
+{
+    "name": "Harsh Raj — Portfolio",
+    "short_name": "Harsh Raj",
+    "description": "AI Engineer · Full-Stack Developer · Researcher. B.Tech CSE at VIT-AP University.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#000000",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "assets/icons/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icons/maskable.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "maskable"
+        }
+    ]
+}

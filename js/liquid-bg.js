@@ -6,7 +6,7 @@
 // Runs only on the Skills slide (index 3).
 // ========================================
 
-import * as THREE from "https://esm.sh/three";
+import * as THREE from "three";
 
 // ────────────────────────────────────────
 // TOUCH TEXTURE

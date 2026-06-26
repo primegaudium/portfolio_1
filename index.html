@@ -1,4 +1,4 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,6 +16,14 @@
     <meta property="og:title" content="Harsh Raj — Portfolio" />
     <meta property="og:description" content="ML Engineer · Full-Stack Developer · AI Researcher" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://portfolio-out.vercel.app/" />
+    <meta property="og:image" content="https://portfolio-out.vercel.app/assets/images/slide-01-hero.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Harsh Raj — Portfolio" />
+    <meta name="twitter:description" content="AI Engineer · Full-Stack Developer · Researcher" />
+    <meta name="twitter:image" content="https://portfolio-out.vercel.app/assets/images/slide-01-hero.jpg" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://portfolio-out.vercel.app/" />
     <title>Harsh Raj — Portfolio</title>
 
     <!-- Stylesheets -->
@@ -26,9 +34,23 @@
     <link rel="stylesheet" href="css/deploy-fix.css" />
     <link rel="stylesheet" href="css/mobile.css" />
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Harsh Raj" />
 
     <!-- GSAP (required by slider-core.js for transitions) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://esm.sh/three@0.160.0"
+        }
+    }
+    </script>
 </head>
 
 <body>
@@ -89,7 +111,9 @@
     <main class="slider-wrapper" id="sliderWrapper">
 
         <!-- WebGL canvas — owned by THREE.js / renderer.js -->
-        <canvas class="webgl-canvas"></canvas>
+        <canvas class="webgl-canvas" aria-hidden="true"></canvas>
+
+        <p class="u-sr-only" id="slideAnnouncer" aria-live="polite" aria-atomic="true"></p>
 
         <!-- Slide counters (hidden via CSS) -->
         <span class="slide-number" id="slideNumber" aria-live="polite">01</span>
@@ -187,6 +211,7 @@
                 <div class="glass-panel leadership-right">
                     <p class="overlay-eyebrow">Achievement</p>
                     <div class="achievement-badge" id="achievement-badge"></div>
+                    <div class="research-block" id="research-block"></div>
                 </div>
 
             </section>
@@ -198,6 +223,7 @@
                     <h2 class="contact-headline" id="contact-headline"></h2>
                     <p class="contact-subtext" id="contact-subtext"></p>
                     <div class="contact-links" id="contact-links"></div>
+                    <div class="contact-extra" id="contact-extra"></div>
                 </div>
                 <p class="contact-location" id="contact-location"></p>
             </section>

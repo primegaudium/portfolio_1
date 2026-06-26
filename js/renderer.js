@@ -6,7 +6,7 @@
 // - Remaining slides load in background
 // ========================================
 
-import * as THREE from "https://esm.sh/three";
+import * as THREE from "three";
 import { SLIDER_CONFIG } from "./slider-config.js";
 import { vertexShader, fragmentShader } from "./shaders.js";
 import { slidesMeta } from "./slides-data.js";

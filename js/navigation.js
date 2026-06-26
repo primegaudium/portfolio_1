@@ -34,8 +34,21 @@ export const createSlidesNavigation = () => {
 
 export const updateNavigationState = (activeIndex) => {
     document.querySelectorAll(".slide-nav-item").forEach((item, i) => {
-        item.classList.toggle("active", i === activeIndex);
+        const isActive = i === activeIndex;
+        item.classList.toggle("active", isActive);
+        // aria-current marks the active slide for assistive tech.
+        if (isActive) item.setAttribute("aria-current", "true");
+        else item.removeAttribute("aria-current");
     });
+};
+
+// Announce the current slide via the SR-only live region. The visible
+// counter is display:none, so this is the only slide context SR users get.
+const _announceSlide = (index) => {
+    const el = document.getElementById("slideAnnouncer");
+    if (!el) return;
+    const title = slidesMeta[index]?.title ?? "";
+    el.textContent = `Slide ${index + 1} of ${slidesMeta.length}: ${title}`;
 };
 
 export const updateSlideProgress = (slideIndex, progress) => {
@@ -84,8 +97,16 @@ export const updateCounter = (index) => {
 
 export const activateOverlay = (index) => {
     document.querySelectorAll(".slide-overlay").forEach((el) => {
-        el.classList.toggle("active", parseInt(el.dataset.slide) === index);
+        const isActive = parseInt(el.dataset.slide) === index;
+        el.classList.toggle("active", isActive);
+        // Hide inactive slides from assistive tech and keyboard focus so
+        // users don't tab into off-screen content.
+        el.setAttribute("aria-hidden", String(!isActive));
+        if (isActive) el.removeAttribute("inert");
+        else el.setAttribute("inert", "");
     });
+
+    _announceSlide(index);
 
     // Trigger typewriter on the active slide's heading
     triggerTypewriter(index);
@@ -302,6 +323,15 @@ const _buildLeadership = (o) => {
     `;
     }
 
+    const researchEl = document.getElementById("research-block");
+    if (researchEl && o.research) {
+        researchEl.innerHTML = `
+      <p class="overlay-eyebrow research-eyebrow">Research</p>
+      <p class="research-title">${o.research.title}</p>
+      <p class="research-desc">${o.research.description}</p>
+    `;
+    }
+
     const rolesEl = document.getElementById("roles-list");
     if (rolesEl && o.roles) {
         rolesEl.innerHTML = o.roles
@@ -326,6 +356,14 @@ const _buildContact = (o) => {
     _set("contact-headline", o.headline);
     _set("contact-subtext", o.subtext);
     _set("contact-location", o.location);
+
+    const extraEl = document.getElementById("contact-extra");
+    if (extraEl && (o.languages || o.interests)) {
+        extraEl.innerHTML = `
+      ${o.languages ? `<div class="contact-extra-item"><span class="contact-link-type">Languages</span><span class="contact-extra-value">${o.languages}</span></div>` : ""}
+      ${o.interests ? `<div class="contact-extra-item"><span class="contact-link-type">Interests</span><span class="contact-extra-value">${o.interests}</span></div>` : ""}
+    `;
+    }
 
     const linksEl = document.getElementById("contact-links");
     if (linksEl && o.links) {

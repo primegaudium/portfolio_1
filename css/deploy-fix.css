@@ -700,3 +700,113 @@ html {
 .projects-count {
     text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6) !important;
 }
+
+/* ═══════════════════════════════════════
+   RESEARCH BLOCK (Leadership slide, right panel)
+   ════════════════════════════════════════ */
+.research-block {
+    margin-top: 1.4rem !important;
+    padding-top: 1.2rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    min-width: 0 !important;
+}
+
+.research-eyebrow {
+    margin-bottom: 0.5rem !important;
+}
+
+.research-title {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    color: #ffffff !important;
+    margin-bottom: 0.4rem !important;
+    overflow-wrap: anywhere !important;
+}
+
+.research-desc {
+    font-size: 11px !important;
+    line-height: 1.55 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    overflow-wrap: anywhere !important;
+}
+
+/* ════════════════════════════════════════
+   CONTACT — ADDITIONAL INFO (languages / interests)
+   ════════════════════════════════════════ */
+.contact-extra {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.65rem !important;
+    margin-top: 1.4rem !important;
+    padding-top: 1.2rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.contact-extra-item {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    min-width: 0 !important;
+}
+
+.contact-extra-value {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+}
+
+@media (max-width: 768px) {
+    .research-block {
+        margin-top: 1rem !important;
+        padding-top: 0.9rem !important;
+    }
+
+    .research-title {
+        font-size: 11px !important;
+    }
+
+    .research-desc {
+        font-size: 10px !important;
+    }
+
+    .contact-extra {
+        margin-top: 1rem !important;
+        padding-top: 0.9rem !important;
+    }
+
+    .contact-extra-value {
+        font-size: 11px !important;
+    }
+}
+
+/* ════════════════════════════════════════
+   STATIC FALLBACK (no-WebGL graceful degradation)
+   ════════════════════════════════════════ */
+
+/* Per-slide image background painted by fallback.js. Sits behind the
+   overlays; a dark scrim keeps overlay text readable. */
+.fallback-bg {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: var(--z-canvas, 1) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    opacity: 0 !important;
+    transition: opacity 0.6s ease !important;
+    pointer-events: none !important;
+}
+
+.fallback-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* The WebGL canvas is dead in fallback mode — hide it. */
+.static-fallback .webgl-canvas {
+    display: none !important;
+}

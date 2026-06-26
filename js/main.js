@@ -19,6 +19,7 @@ import {
 } from "./transitions.js";
 import { bindAllEvents } from "./events.js";
 import { LiquidBackground } from "./liquid-bg.js";
+import { enableStaticFallback } from "./fallback.js";
 
 // ── Skills slide index (0-based) ──
 const SKILLS_SLIDE_INDEX = 3;
@@ -46,25 +47,43 @@ window.addEventListener("load", async () => {
     // 5 — Activate the first overlay
     activateOverlay(0);
 
-    // 6 — Set up Tweakpane controls panel
-    setupPane();
-
-    // 7 — Wire all event listeners
+    // 6 — Wire all event listeners
     bindAllEvents();
 
-    // 8 — Initialise THREE.js renderer + load textures
-    const ready = await initializeRenderer();
+    // 7 — Initialise THREE.js renderer + load textures
+    let ready = false;
+    try {
+        ready = await initializeRenderer();
+    } catch (err) {
+        console.error("main.js: renderer failed to initialise.", err);
+    }
 
-    // 9 — Init liquid background (creates its canvas in the DOM)
-    liquidBg.init();
+    // 8 — Init liquid background (creates its canvas in the DOM)
+    try {
+        liquidBg.init();
+    } catch (err) {
+        console.warn("main.js: liquid background failed to init.", err);
+    }
 
     if (ready) {
-        // 10 — Enable transitions and start auto-slide timer
+        // 9 — Enable transitions and start auto-slide timer
         enableSlider();
         safeStartTimer(500);
     } else {
-        console.error("main.js: renderer failed to initialise.");
+        console.error("main.js: renderer not ready — enabling static fallback.");
+        // Graceful degradation: keep all slides reachable without WebGL.
+        try {
+            enableStaticFallback();
+        } catch (err) {
+            console.error("main.js: static fallback failed.", err);
+        }
     }
+
+    // 10 — Set up Tweakpane debug panel LAST, fully detached from boot.
+    //      It is optional (H key) and must never block the slider.
+    setupPane().catch((err) =>
+        console.warn("main.js: debug panel setup skipped.", err)
+    );
 
 });
 

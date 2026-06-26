@@ -6,19 +6,36 @@
 // into an exported setupPane() function.
 // ========================================
 
-import { Pane } from "https://cdn.skypack.dev/tweakpane@4.0.4";
 import { SLIDER_CONFIG } from "./slider-config.js";
 import { shaderMaterial, updateShaderUniforms, getEffectIndex } from "./renderer.js";
 
 // ── Module-level state ──
+let Pane = null;
 let pane = null;
 let isApplyingPreset = false;
 let effectFolders = {};
 
 // ────────────────────────────────────────
 // PUBLIC ENTRY POINT
+//
+// Tweakpane is a NON-ESSENTIAL debug panel (toggled with the H key).
+// It must never block the boot sequence. We therefore load it lazily
+// via dynamic import from a CORS-enabled CDN (esm.sh). The previous
+// static import from cdn.skypack.dev sent no Access-Control-Allow-Origin
+// header, which failed the entire module graph and froze the preloader.
+// Any failure here is caught and ignored so the slider still loads.
 // ────────────────────────────────────────
-export const setupPane = () => {
+export const setupPane = async () => {
+    try {
+        if (!Pane) {
+            const mod = await import("https://esm.sh/tweakpane@4.0.4");
+            Pane = mod.Pane;
+        }
+    } catch (err) {
+        console.warn("controls.js: Tweakpane failed to load — skipping debug panel.", err);
+        return;
+    }
+
     pane = new Pane({ title: "Visual Effects Controls" });
 
     // 1 — General settings
