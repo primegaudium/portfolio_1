@@ -1,0 +1,635 @@
+/* ════════════════════════════════════════
+   MOBILE.CSS — Harsh Raj Portfolio
+   Responsive layout for:
+     · Large tablet  769–1024px
+     · Tablet        481–768px
+     · Mobile        360–480px
+
+   ADD AS LAST <link> in index.html, after
+   deploy-fix.css:
+   <link rel="stylesheet" href="css/mobile.css" />
+   ════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────
+   LARGE TABLET  769 – 1024px
+   Two columns still work but need scaling
+───────────────────────────────────────── */
+@media (max-width: 1024px) {
+
+    /* ── Base layout ── */
+    html {
+        font-size: 13px !important;
+    }
+
+    .slide-overlay {
+        padding: 52px 36px 90px !important;
+        gap: 32px !important;
+    }
+
+    /* ── Nav bar: hide, swipe only ── */
+    .slides-navigation {
+        display: none !important;
+    }
+
+    /* ── Keyboard hint bar ── */
+    .slider-hint {
+        font-size: 9px !important;
+    }
+
+    /* ═══ HERO ═══ */
+    .hero-name,
+    #hero-name {
+        font-size: clamp(44px, 7vw, 70px) !important;
+    }
+
+    .hero-tagline,
+    #hero-tagline {
+        font-size: 13px !important;
+    }
+
+    /* ═══ ABOUT ═══ */
+    .overlay--about {
+        flex-direction: row !important;
+        align-items: flex-start !important;
+        gap: 28px !important;
+    }
+
+    .about-left {
+        width: min(420px, 52vw) !important;
+    }
+
+    .about-right {
+        width: 240px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .about-photo-card {
+        aspect-ratio: 3/4 !important;
+    }
+
+    .stat-value {
+        font-size: clamp(20px, 2.8vw, 30px) !important;
+    }
+
+    /* ═══ PROJECTS ═══ */
+    .projects-left {
+        width: 160px !important;
+    }
+
+    .projects-headline,
+    #projects-headline {
+        font-size: clamp(28px, 4vw, 46px) !important;
+    }
+
+    .projects-right,
+    #projects-list {
+        max-height: calc(100vh - 140px) !important;
+    }
+
+    /* ═══ SKILLS ═══ */
+    .skills-left {
+        width: min(420px, 50vw) !important;
+    }
+
+    .skills-right {
+        width: 280px !important;
+    }
+
+    .skills-headline,
+    #skills-headline {
+        font-size: clamp(30px, 4.5vw, 52px) !important;
+    }
+
+    /* ═══ LEADERSHIP ═══ */
+    .leadership-left {
+        width: min(460px, 54vw) !important;
+    }
+
+    .leadership-right {
+        width: 220px !important;
+    }
+
+    .leadership-headline,
+    #leadership-headline {
+        font-size: clamp(28px, 4vw, 48px) !important;
+    }
+
+    /* ═══ CONTACT ═══ */
+    .contact-headline,
+    #contact-headline {
+        font-size: clamp(36px, 5.5vw, 64px) !important;
+    }
+}
+
+
+/* ─────────────────────────────────────────
+   TABLET  481 – 768px
+   Switch to single-column, stack all panels
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    html {
+        font-size: 12px !important;
+    }
+
+    /* ── Slide container ── */
+    .slide-overlay {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        padding: 48px 28px 100px !important;
+        gap: 24px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    /* ── Nav bar: hidden ── */
+    .slides-navigation {
+        display: none !important;
+    }
+
+    /* ── Vertical rule between columns: hide ── */
+    .v-rule {
+        display: none !important;
+    }
+
+    /* ── Slide counter ── */
+    .slide-counter {
+        font-size: 9px !important;
+    }
+
+    /* ═══ HERO ═══ */
+    .overlay--hero {
+        justify-content: flex-end !important;
+        padding-bottom: 80px !important;
+    }
+
+    .hero-name,
+    #hero-name {
+        font-size: clamp(42px, 9vw, 64px) !important;
+        line-height: 0.95 !important;
+    }
+
+    .hero-role,
+    #hero-role {
+        font-size: 10px !important;
+        letter-spacing: 0.14em !important;
+    }
+
+    .hero-tagline,
+    #hero-tagline {
+        font-size: 13px !important;
+        max-width: 100% !important;
+    }
+
+    .hero-actions {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+
+    .hero-socials {
+        position: relative !important;
+        right: auto !important;
+        top: auto !important;
+        flex-direction: row !important;
+        gap: 16px !important;
+        margin-top: 12px !important;
+    }
+
+    /* ═══ ABOUT ═══ */
+    .overlay--about {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .about-left {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .about-headline,
+    #about-headline {
+        font-size: clamp(28px, 7vw, 44px) !important;
+    }
+
+    .about-bio,
+    #about-bio {
+        font-size: 13px !important;
+    }
+
+    /* Right: photo + stats side by side */
+    .about-right {
+        width: 100% !important;
+        flex-direction: row !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+    }
+
+    .about-photo-card {
+        width: 140px !important;
+        flex-shrink: 0 !important;
+        aspect-ratio: 3/4 !important;
+    }
+
+    .about-stats-grid {
+        flex: 1 !important;
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .stat-value {
+        font-size: clamp(20px, 4vw, 28px) !important;
+    }
+
+    .stat-label {
+        font-size: 8px !important;
+    }
+
+    /* ═══ PROJECTS ═══ */
+    .overlay--projects {
+        flex-direction: column !important;
+    }
+
+    .projects-left {
+        width: 100% !important;
+        flex-direction: row !important;
+        align-items: baseline !important;
+        gap: 16px !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Hide the big rotated heading on tablet/mobile */
+    .projects-headline-rotated,
+    .projects-left .projects-headline {
+        writing-mode: horizontal-tb !important;
+        transform: none !important;
+        font-size: clamp(28px, 7vw, 42px) !important;
+    }
+
+    .projects-count {
+        font-size: 10px !important;
+    }
+
+    .projects-right,
+    #projects-list {
+        width: 100% !important;
+        max-height: calc(100vh - 220px) !important;
+        overflow-y: auto !important;
+    }
+
+    .project-name {
+        font-size: 15px !important;
+    }
+
+    .project-desc {
+        font-size: 12px !important;
+    }
+
+    .project-tagline {
+        font-size: 8px !important;
+    }
+
+    .tag {
+        font-size: 8px !important;
+        padding: 3px 7px !important;
+    }
+
+    /* ═══ SKILLS ═══ */
+    .overlay--skills {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .skills-left {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .skills-headline,
+    #skills-headline {
+        font-size: clamp(28px, 7vw, 44px) !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .skill-category-name {
+        font-size: 9px !important;
+    }
+
+    .skill-pill {
+        font-size: 9px !important;
+        padding: 4px 10px !important;
+    }
+
+    /* Certs: full width below skills */
+    .skills-right {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .cert-list {
+        gap: 2px !important;
+    }
+
+    .cert-name {
+        font-size: 10px !important;
+    }
+
+    .cert-issuer {
+        font-size: 8px !important;
+    }
+
+    /* ═══ LEADERSHIP ═══ */
+    .overlay--leadership {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .leadership-left {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .leadership-headline,
+    #leadership-headline {
+        font-size: clamp(28px, 7vw, 44px) !important;
+        margin-bottom: 0.8rem !important;
+    }
+
+    .role-title {
+        font-size: 13px !important;
+    }
+
+    .role-desc {
+        font-size: 11px !important;
+    }
+
+    /* Achievement badge: full width below roles */
+    .leadership-right {
+        width: 100% !important;
+        max-width: 340px !important;
+    }
+
+    .badge-rank {
+        font-size: clamp(22px, 5vw, 32px) !important;
+    }
+
+    .badge-event {
+        font-size: 12px !important;
+    }
+
+    /* ═══ CONTACT ═══ */
+    .overlay--contact {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-end !important;
+        padding-bottom: 80px !important;
+    }
+
+    .contact-headline,
+    #contact-headline {
+        font-size: clamp(32px, 8vw, 52px) !important;
+        line-height: 0.95 !important;
+    }
+
+    .contact-subtext,
+    #contact-subtext {
+        font-size: 13px !important;
+    }
+
+    .contact-links {
+        gap: 12px !important;
+    }
+
+    .contact-link-type {
+        font-size: 8px !important;
+    }
+
+    .contact-link-value {
+        font-size: 12px !important;
+    }
+
+    /* Location: hide from corner, show inline */
+    .contact-location,
+    #contact-location {
+        position: relative !important;
+        bottom: auto !important;
+        right: auto !important;
+        margin-top: 16px !important;
+        font-size: 9px !important;
+    }
+
+    /* ── Glass panels: natural height ── */
+    .glass-panel {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+}
+
+
+/* ─────────────────────────────────────────
+   MOBILE  360 – 480px
+   Tighter spacing, smaller type
+───────────────────────────────────────── */
+@media (max-width: 480px) {
+
+    html {
+        font-size: 11px !important;
+    }
+
+    .slide-overlay {
+        padding: 40px 20px 90px !important;
+        gap: 20px !important;
+    }
+
+    /* ═══ HERO ═══ */
+    .hero-name,
+    #hero-name {
+        font-size: clamp(36px, 10vw, 52px) !important;
+    }
+
+    .hero-role,
+    #hero-role {
+        font-size: 9px !important;
+        letter-spacing: 0.12em !important;
+    }
+
+    .hero-tagline,
+    #hero-tagline {
+        font-size: 12px !important;
+    }
+
+    .hero-cta-primary,
+    .hero-cta-secondary {
+        font-size: 9px !important;
+        padding: 9px 16px !important;
+    }
+
+    .hero-socials {
+        gap: 12px !important;
+    }
+
+    .hero-socials .overlay-link {
+        font-size: 9px !important;
+    }
+
+    /* ═══ ABOUT ═══ */
+    .about-headline,
+    #about-headline {
+        font-size: clamp(24px, 8.5vw, 36px) !important;
+    }
+
+    .about-bio {
+        font-size: 12px !important;
+    }
+
+    .edu-degree {
+        font-size: 12px !important;
+    }
+
+    .edu-meta {
+        font-size: 8px !important;
+    }
+
+    /* Stack photo above stats on small mobile */
+    .about-right {
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+
+    .about-photo-card {
+        width: 100% !important;
+        aspect-ratio: 16/9 !important;
+        /* landscape saves vertical space */
+    }
+
+    .about-stats-grid {
+        width: 100% !important;
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .stat-value {
+        font-size: clamp(18px, 5vw, 26px) !important;
+    }
+
+    /* ═══ PROJECTS ═══ */
+    .projects-right,
+    #projects-list {
+        max-height: calc(100vh - 180px) !important;
+    }
+
+    .project-name {
+        font-size: 14px !important;
+    }
+
+    .project-desc {
+        font-size: 11px !important;
+    }
+
+    /* ═══ SKILLS ═══ */
+    .skills-headline,
+    #skills-headline {
+        font-size: clamp(24px, 8.5vw, 36px) !important;
+    }
+
+    .skill-pill {
+        font-size: 8.5px !important;
+        padding: 4px 9px !important;
+    }
+
+    .cert-name {
+        font-size: 9.5px !important;
+    }
+
+    .cert-issuer {
+        font-size: 7.5px !important;
+    }
+
+    /* ═══ LEADERSHIP ═══ */
+    .leadership-headline,
+    #leadership-headline {
+        font-size: clamp(24px, 8.5vw, 36px) !important;
+    }
+
+    .role-title {
+        font-size: 12px !important;
+    }
+
+    .role-desc {
+        font-size: 11px !important;
+    }
+
+    .badge-rank {
+        font-size: clamp(20px, 6vw, 28px) !important;
+    }
+
+    /* ═══ CONTACT ═══ */
+    .contact-headline,
+    #contact-headline {
+        font-size: clamp(28px, 9vw, 44px) !important;
+    }
+
+    .contact-link-value {
+        font-size: 11px !important;
+    }
+
+    /* ── Hint bar: hide on tiny screens ── */
+    .slider-hint {
+        display: none !important;
+    }
+
+    /* ── Slide counter: keep but shrink ── */
+    .slide-counter {
+        font-size: 8px !important;
+        opacity: 0.5 !important;
+    }
+}
+
+
+/* ─────────────────────────────────────────
+   TOUCH SWIPE HINT
+   Shows a subtle swipe indicator on first
+   load on touch devices, fades after 3s
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Inject a swipe hint via pseudo on the wrapper */
+    #sliderWrapper::after {
+        content: "← swipe →";
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-mono, monospace);
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        pointer-events: none;
+        z-index: 999;
+        animation: swipe-hint-fade 3.5s ease forwards;
+        animation-delay: 1.5s;
+        opacity: 0;
+    }
+
+    @keyframes swipe-hint-fade {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(4px);
+        }
+
+        20% {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        75% {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-4px);
+        }
+    }
+}

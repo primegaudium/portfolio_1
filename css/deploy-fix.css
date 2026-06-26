@@ -1,0 +1,702 @@
+/* ════════════════════════════════════════
+   DEPLOY-FIX.CSS
+   
+   1. Add <link rel="stylesheet" href="css/deploy-fix.css">
+      as the LAST <link> in index.html <head>
+      (after all other CSS files so it wins)
+   
+   2. Also REMOVE the layout-fix-patch and
+      layout-fix-v2 blocks from overlay.css
+      (delete everything you added previously
+      at the bottom of overlay.css)
+   ════════════════════════════════════════ */
+
+/* ── Base: lock the rendering scale ── */
+html {
+    font-size: 14px !important;
+}
+
+/* ── Overlays: tighten default padding ── */
+.slide-overlay {
+    padding: 60px 48px 80px !important;
+    gap: 48px !important;
+}
+
+/* ═══════════ HERO ═══════════ */
+.hero-name,
+#hero-name {
+    font-size: clamp(52px, 6vw, 80px) !important;
+    line-height: 0.95 !important;
+}
+
+.hero-role,
+#hero-role {
+    font-size: 11px !important;
+    letter-spacing: 0.18em !important;
+}
+
+.hero-tagline,
+#hero-tagline {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    max-width: 400px !important;
+}
+
+.hero-cta-primary,
+.hero-cta-secondary {
+    font-size: 10px !important;
+    padding: 10px 20px !important;
+}
+
+.hero-socials .overlay-link {
+    font-size: 10px !important;
+}
+
+/* ═══════════ ABOUT ═══════════ */
+.about-left {
+    width: min(520px, 50vw) !important;
+}
+
+.about-headline,
+#about-headline {
+    font-size: clamp(32px, 4vw, 56px) !important;
+    line-height: 1.05 !important;
+    margin-bottom: 1.2rem !important;
+}
+
+.about-bio,
+#about-bio {
+    font-size: 13px !important;
+    line-height: 1.65 !important;
+}
+
+.edu-degree {
+    font-size: 13px !important;
+}
+
+.edu-meta {
+    font-size: 9px !important;
+}
+
+/* Right column: photo + stats */
+.about-right {
+    width: 260px !important;
+}
+
+.about-photo-card {
+    aspect-ratio: 3 / 4 !important;
+}
+
+.about-stats-grid {
+    border-radius: 6px !important;
+}
+
+.stat-value {
+    font-size: clamp(22px, 2.5vw, 32px) !important;
+}
+
+.stat-label {
+    font-size: 8px !important;
+    letter-spacing: 0.12em !important;
+}
+
+.stat-cell {
+    padding: 0.9rem 1rem !important;
+}
+
+/* ═══════════ PROJECTS ═══════════ */
+.projects-left {
+    width: 200px !important;
+}
+
+.projects-headline,
+#projects-headline {
+    font-size: clamp(36px, 4vw, 56px) !important;
+}
+
+.projects-right {
+    flex: 1 !important;
+    max-height: calc(100vh - 160px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(255, 255, 255, 0.12) transparent !important;
+}
+
+.project-card {
+    padding: 1rem 1.2rem !important;
+}
+
+.project-name {
+    font-size: 16px !important;
+}
+
+.project-tagline {
+    font-size: 9px !important;
+}
+
+.project-desc {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin: 0.3rem 0 0.5rem !important;
+}
+
+.tag {
+    font-size: 9px !important;
+    padding: 3px 8px !important;
+}
+
+.overlay-link {
+    font-size: 9px !important;
+}
+
+/* ═══════════ SKILLS ═══════════ */
+.skills-left {
+    width: min(500px, 48vw) !important;
+}
+
+.skills-headline,
+#skills-headline {
+    font-size: clamp(36px, 4.5vw, 60px) !important;
+    margin-bottom: 1.4rem !important;
+}
+
+.skill-category {
+    padding: 0.7rem 0 !important;
+}
+
+.skill-category-name {
+    font-size: 9px !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.skill-pill {
+    font-size: 10px !important;
+    padding: 5px 11px !important;
+}
+
+.skill-pills {
+    gap: 6px !important;
+}
+
+/* Certs right panel */
+.skills-right {
+    width: 320px !important;
+}
+
+.certs-label {
+    font-size: 9px !important;
+    margin-bottom: 1rem !important;
+}
+
+.cert-item {
+    padding: 0.65rem 0.9rem 0.65rem 1rem !important;
+}
+
+.cert-name {
+    font-size: 10.5px !important;
+    margin-bottom: 0.2rem !important;
+}
+
+.cert-issuer {
+    font-size: 9px !important;
+}
+
+/* ═══════════ LEADERSHIP ═══════════ */
+.leadership-left {
+    width: min(580px, 55vw) !important;
+}
+
+.leadership-headline,
+#leadership-headline {
+    font-size: clamp(32px, 4vw, 56px) !important;
+    margin-bottom: 1rem !important;
+}
+
+.role-item {
+    padding: 0.75rem 0 !important;
+}
+
+.role-title {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.role-period {
+    font-size: 9px !important;
+}
+
+.role-org {
+    font-size: 9px !important;
+    margin-bottom: 0.3rem !important;
+}
+
+.role-desc {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+}
+
+/* Achievement badge */
+.leadership-right {
+    width: 260px !important;
+}
+
+.badge-rank {
+    font-size: clamp(24px, 3vw, 36px) !important;
+}
+
+.badge-event {
+    font-size: 13px !important;
+}
+
+.badge-organizer {
+    font-size: 9px !important;
+}
+
+/* ═══════════ CONTACT ═══════════ */
+.contact-headline,
+#contact-headline {
+    font-size: clamp(40px, 5vw, 72px) !important;
+    line-height: 0.95 !important;
+}
+
+.contact-subtext,
+#contact-subtext {
+    font-size: 13px !important;
+}
+
+.contact-link-type {
+    font-size: 9px !important;
+    letter-spacing: 0.14em !important;
+}
+
+.contact-link-value {
+    font-size: 12px !important;
+}
+
+.contact-location,
+#contact-location {
+    font-size: 9px !important;
+}
+
+/* ═══════════ GLASS PANEL ═══════════ */
+.glass-panel {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* ═══════════ NAV BAR ═══════════ */
+.slide-nav-title {
+    font-size: 9px !important;
+}
+
+/* ═══════════ EYEBROW LABELS ═══════════ */
+.overlay-eyebrow,
+[id$="-eyebrow"],
+#about-eyebrow,
+#skills-eyebrow,
+#leadership-eyebrow,
+#contact-label {
+    font-size: 9px !important;
+    letter-spacing: 0.2em !important;
+    margin-bottom: 0.8rem !important;
+}
+
+/* ════════════════════════════════════════
+   APPEND TO BOTTOM OF deploy-fix.css
+   (do not replace anything, just add these)
+   ════════════════════════════════════════ */
+
+/* ── FIX 1: Projects list — stop it from
+   overlapping the nav footer bar ── */
+.projects-right,
+#projects-list {
+    max-height: calc(100vh - 160px) !important;
+    overflow-y: auto !important;
+    padding-bottom: 12px !important;
+}
+
+/* ── FIX 2: Hero left content — shift the
+   whole block up so there's more breathing
+   room above the nav footer ── */
+.overlay--hero {
+    padding-bottom: 110px !important;
+}
+
+/* ════════════════════════════════════════
+   SKILLS REDESIGN
+   APPEND to the bottom of deploy-fix.css
+   ════════════════════════════════════════ */
+
+/* ── Skill pill: bigger, icon inside ── */
+.skill-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    font-size: 12px !important;
+    padding: 7px 14px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 3px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    transition: background 0.2s, border-color 0.2s, color 0.2s !important;
+    cursor: default !important;
+    letter-spacing: 0.04em !important;
+}
+
+.skill-pill:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    color: #ffffff !important;
+}
+
+/* ── Skill icon inside pill ── */
+.skill-icon {
+    width: 15px !important;
+    height: 15px !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
+    opacity: 0.9 !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+.skill-pill:hover .skill-icon {
+    opacity: 1 !important;
+}
+
+/* ── Category label: bigger, more visible ── */
+.skill-category-name {
+    font-size: 10px !important;
+    letter-spacing: 0.22em !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+    margin-bottom: 0.7rem !important;
+    text-transform: uppercase !important;
+}
+
+/* ── Skill category spacing ── */
+.skill-category {
+    padding: 0.85rem 0 !important;
+}
+
+.skill-pills {
+    gap: 7px !important;
+    flex-wrap: wrap !important;
+    display: flex !important;
+}
+
+/* ── Cert items: icon on the left ── */
+.cert-item {
+    padding: 0.75rem 1rem 0.75rem 1rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.25) !important;
+    background: rgba(0, 0, 0, 0.35) !important;
+    transition: background 0.2s, border-left-color 0.2s !important;
+}
+
+.cert-item:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-left-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Inner flex row: icon + text */
+.cert-item-inner {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.cert-icon {
+    width: 20px !important;
+    height: 20px !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
+    opacity: 0.8 !important;
+}
+
+.cert-item:hover .cert-icon {
+    opacity: 1 !important;
+}
+
+.cert-icon-placeholder {
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0 !important;
+    display: inline-block !important;
+}
+
+.cert-text {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    min-width: 0 !important;
+}
+
+.cert-name {
+    font-size: 11px !important;
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+}
+
+.cert-issuer {
+    font-size: 9px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.14em !important;
+}
+
+/* ── Mobile: keep icons but shrink slightly ── */
+@media (max-width: 768px) {
+    .skill-pill {
+        font-size: 10px !important;
+        padding: 6px 11px !important;
+        gap: 5px !important;
+    }
+
+    .skill-icon {
+        width: 13px !important;
+        height: 13px !important;
+    }
+
+    .cert-icon {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    .cert-name {
+        font-size: 10px !important;
+    }
+
+    .cert-issuer {
+        font-size: 8px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .skill-pill {
+        font-size: 9px !important;
+        padding: 5px 9px !important;
+    }
+
+    .skill-icon {
+        width: 12px !important;
+        height: 12px !important;
+    }
+}
+
+/* ════════════════════════════════════════
+   APPEND TO BOTTOM OF deploy-fix.css
+   (after the skills-redesign block)
+   ════════════════════════════════════════ */
+
+/* ── Skills left panel: scrollable so it
+   never bleeds into the nav footer ── */
+.skills-left {
+    max-height: calc(100vh - 140px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent !important;
+    padding-right: 6px !important;
+}
+
+.skills-left::-webkit-scrollbar {
+    width: 3px;
+}
+
+.skills-left::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.skills-left::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+}
+
+/* ── Skill pill text: pure bright white ── */
+.skill-pill {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.28) !important;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.25) !important;
+    font-weight: 500 !important;
+}
+
+.skill-pill:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* ── Skill icon: full brightness ── */
+.skill-icon {
+    opacity: 1 !important;
+    filter: brightness(1.1) !important;
+}
+
+/* ── Category label: slightly brighter ── */
+.skill-category-name {
+    color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* ════════════════════════════════════════
+   APPEND TO BOTTOM OF deploy-fix.css
+   Fixes:
+   1. Skills panel gap — remove margin-left:auto that pushed
+      certs panel to the far right of the screen
+   2. Null-icon placeholder sizing so text stays aligned
+   ════════════════════════════════════════ */
+
+/* ── FIX 1: Skills right panel — stop it drifting to the far right.
+   overlay.css sets margin-left:auto which creates the dead space. ── */
+.skills-right {
+    margin-left: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+/* ── FIX 2: Null-icon placeholder — same size as a real icon
+   so pill text stays vertically aligned. ── */
+.skill-icon-placeholder {
+    display: inline-block !important;
+    width: 15px !important;
+    height: 15px !important;
+    flex-shrink: 0 !important;
+}
+
+.cert-icon-placeholder {
+    display: inline-block !important;
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0 !important;
+}
+
+/* ── FIX 3: Skill icon white tint — ensure white icons
+   render cleanly on the dark glass background. ── */
+.skill-icon,
+.cert-icon {
+    filter: none !important;
+    /* remove any accidental brightness filters */
+    opacity: 0.9 !important;
+}
+
+.skill-pill:hover .skill-icon,
+.cert-item:hover .cert-icon {
+    opacity: 1 !important;
+}
+
+/* ════════════════════════════════════════
+   POLISH PASS
+   Liquid-glass on hero/contact, accessibility,
+   anti-overlap and alignment safeguards.
+   Loaded last so these rules win.
+   ════════════════════════════════════════ */
+
+/* ── Liquid-glass panel for HERO ──
+   Wraps the hero copy so it stays legible over the
+   busy hero image without hiding the artwork. ── */
+.glass-panel--hero {
+    display: inline-block !important;
+    max-width: min(680px, 92vw) !important;
+    padding: 2.2rem 2.4rem !important;
+    border-radius: 16px !important;
+    background: rgba(0, 0, 0, 0.38) !important;
+    overflow: visible !important;
+}
+
+.glass-panel--hero .hero-tagline {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ── Liquid-glass panel for CONTACT ── */
+.glass-panel--contact {
+    padding: 2.2rem 2.4rem !important;
+    border-radius: 16px !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    overflow: visible !important;
+}
+
+.glass-panel--contact .contact-headline {
+    color: #ffffff !important;
+    text-shadow: 0 1px 24px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ── ANTI-OVERLAP / ALIGNMENT ──
+   Flex children can refuse to shrink, causing siblings
+   to overlap. Allow shrink + wrap everywhere it matters. ── */
+.about-left,
+.skills-left,
+.leadership-left,
+.projects-right,
+.skills-right,
+.cert-text,
+.hero-content,
+.contact-content {
+    min-width: 0 !important;
+}
+
+/* Long emails / URLs must wrap, never push the layout wide. */
+.contact-link-value,
+.cert-name,
+.overlay-link {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+}
+
+.contact-link-item {
+    align-items: baseline !important;
+}
+
+/* Project header: tagline can wrap under name on narrow cards
+   instead of squashing the title. */
+.project-header {
+    flex-wrap: wrap !important;
+}
+
+/* Comfortable tap targets on touch devices. */
+.hero-cta-primary,
+.hero-cta-secondary,
+.overlay-link,
+.contact-link-value,
+.slide-nav-item {
+    min-height: 32px !important;
+}
+
+/* ── ACCESSIBILITY: reduced motion ──
+   Honour the OS setting: kill the long 2s+ stagger delays
+   and heavy transforms so content appears immediately. ── */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        transition-delay: 0ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .slide-overlay {
+        transition: opacity 0.15s ease !important;
+    }
+
+    .typewriter-cursor {
+        display: none !important;
+    }
+}
+
+/* ── Projects headline sits directly on the image (no glass box,
+   to keep the vertical-editorial look). A soft shadow keeps it
+   readable over lighter areas of the artwork. ── */
+.projects-headline,
+#projects-headline {
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.6) !important;
+}
+
+.projects-count {
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6) !important;
+}

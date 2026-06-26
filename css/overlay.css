@@ -1,0 +1,1725 @@
+/* ========================================
+   OVERLAY.CSS — Harsh Raj Portfolio
+   Per-slide content panels layered on top
+   of the WebGL canvas.
+   ======================================== */
+
+/* ────────────────────────────────────────
+   BASE OVERLAY LAYER
+   ──────────────────────────────────────── */
+.slide-overlays {
+    position: absolute;
+    inset: 0;
+    z-index: var(--z-overlay);
+    pointer-events: none;
+}
+
+.slide-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-slow);
+}
+
+.slide-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ════════════════════════════════════════
+   INACTIVE OVERLAY POINTER-EVENT FIX
+   
+   CSS SPEC QUIRK: `pointer-events: none` on a parent does NOT
+   block children that have `pointer-events: auto` (explicitly or
+   inherited). This means inactive slide elements like .project-card,
+   .overlay-link, social <a> tags etc. were ALL clickable even when
+   their slide was hidden — causing wrong links to fire from hero slide.
+
+   This rule forces ALL descendants of inactive overlays to be
+   completely transparent to pointer events.
+
+   ADD THIS BLOCK right after the `.slide-overlay.active { }` rule
+   in overlay.css (around line 22).
+   ════════════════════════════════════════ */
+
+.slide-overlay:not(.active) * {
+    pointer-events: none !important;
+}
+
+/* ────────────────────────────────────────
+   SHARED PANEL COMPONENTS
+   ──────────────────────────────────────── */
+
+/* ── Glass displacement panel ──
+   backdrop-filter references the SVG
+   #glass-filter defined in index.html.
+   The dark semi-transparent background
+   ensures text is readable on any image. */
+.glass-panel {
+    position: relative;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: url(#glass-filter) blur(2px);
+    -webkit-backdrop-filter: url(#glass-filter) blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        0 4px 32px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    padding: 2rem 2rem;
+    /* Ensure text sits above the glass effect */
+    isolation: isolate;
+}
+
+/* Eyebrow / section label */
+.overlay-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.overlay-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--color-text-muted);
+    flex-shrink: 0;
+}
+
+/* Link with arrow */
+.overlay-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2px;
+    transition: color var(--transition-base),
+        border-color var(--transition-base);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.overlay-link::after {
+    content: "↗";
+    font-size: 10px;
+    transition: transform var(--transition-base);
+}
+
+.overlay-link:hover {
+    color: var(--color-text);
+    border-color: var(--color-text);
+}
+
+.overlay-link:hover::after {
+    transform: translate(2px, -2px);
+}
+
+/* Tags row */
+.tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 0.6rem;
+}
+
+
+/* Project tech tags */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+
+    padding: 4px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+
+    color: var(--color-text-muted);
+    line-height: 1;
+    /* 🔥 important for vertical centering */
+}
+
+.tag:hover {
+    border-color: var(--color-border-hover);
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* Ensure projects-left never blocks project cards */
+.projects-left {
+    position: relative;
+    z-index: 1;
+}
+
+/* Make project cards sit above left column */
+.projects-right {
+    position: relative;
+    z-index: 5;
+}
+
+/* Make vertical rule lowest */
+.v-rule {
+    position: relative;
+    z-index: 0;
+}
+
+/* Vertical rule separator */
+.v-rule {
+    width: 1px;
+    background: var(--color-border);
+    align-self: stretch;
+    margin: 0 var(--spacing-md);
+    flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════
+   SLIDE 01 — HERO
+   Full-screen centered, minimal
+   ════════════════════════════════════════ */
+.overlay--hero {
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding-left: calc(var(--spacing-lg) + 60px);
+    padding-right: var(--spacing-lg);
+    padding-top: 0;
+    padding-bottom: calc(var(--spacing-md) * 3 + 60px);
+}
+
+.hero-content {
+    max-width: 680px;
+}
+
+.hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease 2.1s, transform 0.6s ease 2.1s;
+}
+
+.hero-name {
+    font-family: var(--font-display);
+    font-size: var(--font-size-display);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--color-text);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease 2.2s, transform 0.7s ease 2.2s;
+}
+
+.hero-role {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+    margin-bottom: 1.4rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s;
+}
+
+.hero-tagline {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-md);
+    color: var(--color-text-light);
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease 0.45s, transform 0.6s ease 0.45s;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease 0.55s, transform 0.6s ease 0.55s;
+}
+
+.hero-cta-primary {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-bg);
+    background: var(--color-text);
+    border: 1px solid var(--color-text);
+    padding: 10px 22px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background var(--transition-base),
+        color var(--transition-base);
+}
+
+.hero-cta-primary:hover {
+    background: transparent;
+    color: var(--color-text);
+}
+
+.hero-cta-secondary {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2px;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: color var(--transition-base),
+        border-color var(--transition-base);
+}
+
+.hero-cta-secondary:hover {
+    color: var(--color-text);
+    border-color: var(--color-text);
+}
+
+.hero-socials {
+    position: absolute;
+    right: var(--spacing-lg);
+    bottom: calc(var(--spacing-md) * 3 + 70px);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.7s;
+}
+
+/* Animate in when overlay is active */
+.slide-overlay.active .hero-eyebrow,
+.slide-overlay.active .hero-name,
+.slide-overlay.active .hero-role,
+.slide-overlay.active .hero-tagline,
+.slide-overlay.active .hero-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-overlay.active .hero-socials {
+    opacity: 1;
+}
+
+/* ════════════════════════════════════════
+   SLIDE 02 — ABOUT
+   Left panel text + right panel stats
+   ════════════════════════════════════════ */
+.overlay--about {
+    align-items: center;
+    padding-left: calc(var(--spacing-lg) + 60px);
+    padding-right: var(--spacing-lg);
+    padding-top: 0;
+    padding-bottom: calc(var(--spacing-md) * 2 + 60px);
+    gap: 0;
+}
+
+.projects-left {
+    pointer-events: none;
+}
+
+.about-left {
+    flex: 1;
+    max-width: 600px;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-right: var(--spacing-lg);
+}
+
+.about-headline {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 68px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 1.6rem;
+    white-space: pre-line;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+}
+
+.about-bio {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    max-width: 420px;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.6s ease 0.25s, transform 0.6s ease 0.25s;
+}
+
+.about-education {
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
+}
+
+.edu-item {
+    padding: 0.8rem 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.edu-item:last-child {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.edu-degree {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    margin-bottom: 0.3rem;
+}
+
+.edu-meta {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Right: stats grid */
+/* ════════════════════════════════════════
+   ABOUT SLIDE — RIGHT COLUMN RESTYLE
+   
+   In overlay.css, find the section:
+   "SLIDE 02 — ABOUT"
+   
+   Replace the `.about-right`, `.stat-cell`,
+   `.stat-value`, `.stat-label` rules with
+   everything below.
+   ════════════════════════════════════════ */
+
+/* ── Right column wrapper (not a glass panel itself) ── */
+.about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 300px;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(16px);
+    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+}
+
+/* ── Photo glass card ── */
+.about-photo-card {
+    padding: 0;
+    /* image fills the card edge-to-edge */
+    overflow: hidden;
+    border-radius: 12px;
+    aspect-ratio: 3 / 4;
+    /* portrait crop — matches your image */
+    position: relative;
+}
+
+.about-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    /* keep face/torso in frame */
+    display: block;
+    border-radius: 12px;
+    transition: transform 0.6s ease;
+    filter: brightness(0.92) contrast(1.05);
+}
+
+.about-photo-card:hover .about-photo {
+    transform: scale(1.03);
+    /* subtle zoom on hover */
+}
+
+/* ── Stats grid card ── */
+.about-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--color-border);
+    padding: 0;
+    /* cells supply their own padding */
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.stat-cell {
+    background: var(--color-bg);
+    padding: 1.2rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 38px);
+    /* slightly smaller to fit new width */
+    font-weight: 300;
+    color: var(--color-text);
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.stat-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-text-muted);
+}
+
+/* ── Animate in ── */
+.slide-overlay.active .about-right {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ── Glass panel overrides for stats inside glass ── */
+.glass-panel.about-stats-grid {
+    background: rgba(0, 0, 0, 0.45);
+    gap: 1px;
+}
+
+.glass-panel.about-stats-grid .stat-cell {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .about-right {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .about-photo-card {
+        width: 200px;
+        aspect-ratio: 3 / 4;
+        flex-shrink: 0;
+    }
+
+    .about-stats-grid {
+        flex: 1;
+        min-width: 220px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .about-right {
+        flex-direction: column;
+    }
+
+    .about-photo-card {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        /* landscape on mobile to save space */
+    }
+
+    .about-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Animate in */
+.slide-overlay.active .about-headline,
+.slide-overlay.active .about-bio,
+.slide-overlay.active .about-education,
+.slide-overlay.active .about-right {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ════════════════════════════════════════
+   SLIDE 03 — PROJECTS
+   Scrollable card list on right,
+   headline on left
+   ════════════════════════════════════════ */
+.overlay--projects {
+    padding-left: calc(var(--spacing-lg) + 60px);
+    padding-right: var(--spacing-lg);
+    padding-top: calc(var(--spacing-md) * 2 + 40px);
+    padding-bottom: calc(var(--spacing-md) * 2 + 60px);
+    gap: var(--spacing-lg);
+}
+
+.projects-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 1rem;
+    flex-shrink: 0;
+    width: 220px;
+}
+
+.projects-headline {
+    font-family: var(--font-display);
+    font-size: clamp(44px, 6vw, 92px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg) translateY(12px);
+    opacity: 0;
+    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+}
+
+.projects-count {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+    margin-top: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.3s;
+}
+
+/* Scrollable cards column */
+.projects-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+    max-height: calc(100vh - 200px);
+}
+
+.project-card {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+    padding: 1.2rem 1.4rem;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: border-color var(--transition-base),
+        background var(--transition-base);
+    opacity: 0;
+    transform: translateY(16px);
+}
+
+.project-card:nth-child(1) {
+    transition-delay: 0.15s;
+}
+
+.project-card:nth-child(2) {
+    transition-delay: 0.22s;
+}
+
+.project-card:nth-child(3) {
+    transition-delay: 0.29s;
+}
+
+.project-card:nth-child(4) {
+    transition-delay: 0.36s;
+}
+
+.project-card:nth-child(5) {
+    transition-delay: 0.43s;
+}
+
+.project-card:hover {
+    border-color: var(--color-border-hover);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.project-card.featured {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.project-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.project-name {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+}
+
+.project-tagline {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-light);
+    flex-shrink: 0;
+}
+
+.project-desc {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+}
+
+.project-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Animate in */
+.slide-overlay.active .projects-headline {
+    opacity: 1;
+    transform: rotate(180deg) translateY(0);
+}
+
+.slide-overlay.active .projects-count {
+    opacity: 1;
+}
+
+.slide-overlay.active .project-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ════════════════════════════════════════
+   SLIDE 04 — SKILLS
+   Two-column: skill categories + certs
+   ════════════════════════════════════════ */
+/* ════════════════════════════════════════
+   SKILLS SECTION — OVERLAY.CSS PATCH
+   Replace the entire SLIDE 04 — SKILLS
+   block in overlay.css with this.
+   ════════════════════════════════════════ */
+
+.overlay--skills {
+    padding-left: calc(var(--spacing-lg) + 60px);
+    padding-right: var(--spacing-lg);
+    padding-top: calc(var(--spacing-md) * 2);
+    padding-bottom: calc(var(--spacing-md) * 2 + 60px);
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+}
+
+.skills-left {
+    flex: 0 0 auto;
+    width: min(580px, 56vw);
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    height: auto;
+    align-self: flex-start;
+}
+
+.skills-headline {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5.5vw, 72px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+}
+
+.skill-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.25s;
+}
+
+.skill-category {
+    padding: 1rem 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.skill-category:last-child {
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* ── Category label — bumped up, more visible ── */
+.skill-category-name {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    /* was 9px */
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    /* was text-light, now brighter */
+    margin-bottom: 0.8rem;
+}
+
+.skill-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    /* was 6px */
+}
+
+/* ── Skill pill — larger, easier to read ── */
+.skill-pill {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    /* was 10px */
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-muted);
+    padding: 6px 13px;
+    /* was 4px 10px */
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    transition: border-color var(--transition-base),
+        color var(--transition-base),
+        background var(--transition-base);
+    pointer-events: auto;
+    line-height: 1;
+}
+
+.skill-pill:hover {
+    border-color: var(--color-border-hover);
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Right panel — certifications ── */
+.skills-right {
+    width: 380px;
+    flex-shrink: 0;
+    display: flex;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    height: auto;
+    align-self: flex-start;
+}
+
+.certs-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    /* was var(--font-size-xs) ~10-11px, now explicit */
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.3s;
+}
+
+.certs-label::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
+    display: inline-block;
+}
+
+.cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    /* was 1px, tiny gap between items */
+    opacity: 0;
+    transform: translateX(16px);
+    transition: opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s;
+}
+
+/* ── Cert item — left accent bar + larger text ── */
+.cert-item {
+    padding: 0.85rem 1rem 0.85rem 1.2rem;
+    border: 1px solid var(--color-border);
+    border-left: 2px solid rgba(255, 255, 255, 0.3);
+    /* accent line */
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color var(--transition-base),
+        border-left-color var(--transition-base),
+        background var(--transition-base);
+}
+
+.cert-item:hover {
+    border-color: var(--color-border-hover);
+    border-left-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Cert name — much more legible ── */
+.cert-name {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    /* was 10px */
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #ffffff;
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+}
+
+/* ── Cert issuer — bumped, still secondary ── */
+.cert-issuer {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    /* was 9px */
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    /* was text-light, now slightly brighter */
+}
+
+/* ── Animate in (keep same as before) ── */
+.slide-overlay.active .skills-headline {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-overlay.active .skill-categories,
+.slide-overlay.active .certs-label {
+    opacity: 1;
+}
+
+.slide-overlay.active .cert-list {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ── Glass panel overrides for skills ──
+   Keep in sync with the glass-panel section
+   at the bottom of overlay.css             */
+
+.glass-panel .skill-category-name {
+    color: rgba(255, 255, 255, 0.6);
+    /* slightly brighter than before */
+}
+
+.glass-panel .skill-pill {
+    color: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.glass-panel .skill-pill:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.glass-panel .cert-item {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+    border-left-color: rgba(255, 255, 255, 0.25);
+}
+
+.glass-panel .cert-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-left-color: rgba(255, 255, 255, 0.6);
+}
+
+.glass-panel .cert-name {
+    color: #ffffff;
+}
+
+.glass-panel .cert-issuer {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .overlay--skills {
+        flex-direction: column;
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: var(--spacing-md);
+        padding-top: calc(var(--spacing-md) + 40px);
+        padding-bottom: calc(var(--spacing-md) * 2 + 80px);
+        gap: var(--spacing-md);
+    }
+
+    .skills-right {
+        width: 100%;
+    }
+}
+
+/* ════════════════════════════════════════
+   SLIDE 05 — LEADERSHIP
+   Achievement badge + role list
+   ════════════════════════════════════════ */
+.overlay--leadership {
+    padding-left: calc(var(--spacing-lg) + 60px);
+    padding-right: var(--spacing-lg);
+    padding-top: calc(var(--spacing-md) * 2);
+    padding-bottom: calc(var(--spacing-md) * 2 + 60px);
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+}
+
+.leadership-right {
+    width: 320px;
+    margin-left: auto;
+    /* 🔥 pushes to right */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.leadership-left {
+    flex: 0 0 auto;
+    width: min(620px, 58vw);
+    align-self: flex-start;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.leadership-headline {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+}
+
+/* Hackathon badge */
+.achievement-badge {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 1.2rem 1.6rem;
+    margin-bottom: 2.4rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease 0.25s, transform 0.6s ease 0.25s;
+    pointer-events: auto;
+    max-width: fit-content;
+}
+
+.badge-rank {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 300;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+}
+
+.badge-event {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+}
+
+.badge-organizer {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-light);
+}
+
+/* Role list */
+.roles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.4s;
+}
+
+.role-item {
+    padding: 1rem 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.role-item:last-child {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.role-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-bottom: 0.35rem;
+}
+
+.role-title {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.role-period {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-light);
+    flex-shrink: 0;
+}
+
+.role-org {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.4rem;
+}
+
+.role-desc {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: 1.6;
+}
+
+/* Animate in */
+.slide-overlay.active .leadership-headline {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-overlay.active .achievement-badge {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-overlay.active .roles-list {
+    opacity: 1;
+}
+
+/* ════════════════════════════════════════
+   SLIDE 06 — CONTACT
+   Centered minimal, large headline
+   ════════════════════════════════════════ */
+.overlay--contact {
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding-left: calc(var(--spacing-lg) + 60px);
+    padding-right: var(--spacing-lg);
+    padding-top: 0;
+    padding-bottom: calc(var(--spacing-md) * 3 + 60px);
+}
+
+.contact-content {
+    max-width: 600px;
+}
+
+.contact-label {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+}
+
+.contact-label::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--color-text-muted);
+}
+
+.contact-headline {
+    font-family: var(--font-display);
+    font-size: var(--font-size-display);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--color-text);
+    white-space: pre-line;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+}
+
+.contact-subtext {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-md);
+    color: var(--color-text-muted);
+    font-weight: 300;
+    margin-bottom: 2.4rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+}
+
+.contact-link-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contact-link-type {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-light);
+    width: 54px;
+    flex-shrink: 0;
+}
+
+.contact-link-value {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: color var(--transition-base),
+        border-color var(--transition-base);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.contact-link-value:hover {
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+.contact-location {
+    position: absolute;
+    right: var(--spacing-lg);
+    bottom: calc(var(--spacing-md) * 3 + 70px);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-light);
+    text-align: right;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.65s;
+}
+
+/* Animate in */
+.slide-overlay.active .contact-label,
+.slide-overlay.active .contact-headline,
+.slide-overlay.active .contact-subtext,
+.slide-overlay.active .contact-links {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-overlay.active .contact-location {
+    opacity: 1;
+}
+
+/* ────────────────────────────────────────
+   RESPONSIVE ADJUSTMENTS
+   ──────────────────────────────────────── */
+@media (max-width: 1024px) {
+
+    .overlay--about,
+    .overlay--skills,
+    .overlay--leadership {
+        flex-direction: column;
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: var(--spacing-md);
+        padding-top: calc(var(--spacing-md) + 40px);
+        padding-bottom: calc(var(--spacing-md) * 2 + 80px);
+        gap: var(--spacing-md);
+    }
+
+    .about-right {
+        width: 100%;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .skills-right {
+        width: 100%;
+    }
+
+    .projects-left {
+        width: auto;
+        flex-direction: row;
+        align-items: baseline;
+        gap: var(--spacing-md);
+    }
+
+    .projects-headline {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: clamp(28px, 5vw, 44px);
+        opacity: 0;
+        transition: opacity 0.7s ease 0.1s;
+    }
+
+    .slide-overlay.active .projects-headline {
+        opacity: 1;
+        transform: none;
+    }
+
+    .v-rule {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .overlay--hero,
+    .overlay--contact {
+        padding: var(--spacing-sm);
+        padding-bottom: calc(var(--spacing-md) + 100px);
+    }
+
+    .hero-name,
+    .contact-headline {
+        font-size: clamp(42px, 12vw, 72px);
+    }
+
+    .hero-socials,
+    .contact-location {
+        display: none;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .about-right {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .overlay--projects {
+        flex-direction: column;
+        padding: var(--spacing-sm);
+        padding-top: calc(var(--spacing-md) + 40px);
+        padding-bottom: calc(var(--spacing-md) + 100px);
+        gap: var(--spacing-sm);
+    }
+
+    .projects-right {
+        max-height: calc(100vh - 280px);
+    }
+}
+
+/* ════════════════════════════════════════
+   TRANSITION DELAY OVERRIDES
+   All overlay elements wait for the 2.5s
+   WebGL background transition to settle
+   before animating in. Base offset: 2.0s.
+   ════════════════════════════════════════ */
+
+/* ── HERO ── */
+.slide-overlay.active .hero-eyebrow {
+    transition-delay: 2.0s;
+}
+
+.slide-overlay.active .hero-name {
+    transition-delay: 2.15s;
+}
+
+.slide-overlay.active .hero-role {
+    transition-delay: 2.3s;
+}
+
+.slide-overlay.active .hero-tagline {
+    transition-delay: 2.45s;
+}
+
+.slide-overlay.active .hero-actions {
+    transition-delay: 2.6s;
+}
+
+.slide-overlay.active .hero-socials {
+    transition-delay: 2.7s;
+}
+
+/* ── ABOUT ── */
+.slide-overlay.active .about-headline {
+    transition-delay: 2.0s;
+}
+
+.slide-overlay.active .about-bio {
+    transition-delay: 2.2s;
+}
+
+.slide-overlay.active .about-education {
+    transition-delay: 2.4s;
+}
+
+.slide-overlay.active .about-right {
+    transition-delay: 2.1s;
+}
+
+/* ── PROJECTS ── */
+.slide-overlay.active .projects-headline {
+    transition-delay: 2.0s;
+}
+
+.slide-overlay.active .projects-count {
+    transition-delay: 2.2s;
+}
+
+.slide-overlay.active .project-card:nth-child(1) {
+    transition-delay: 2.15s;
+}
+
+.slide-overlay.active .project-card:nth-child(2) {
+    transition-delay: 2.3s;
+}
+
+.slide-overlay.active .project-card:nth-child(3) {
+    transition-delay: 2.45s;
+}
+
+.slide-overlay.active .project-card:nth-child(4) {
+    transition-delay: 2.6s;
+}
+
+.slide-overlay.active .project-card:nth-child(5) {
+    transition-delay: 2.75s;
+}
+
+/* ── SKILLS ── */
+.slide-overlay.active .skills-headline {
+    transition-delay: 2.0s;
+}
+
+.slide-overlay.active .skill-categories {
+    transition-delay: 2.2s;
+}
+
+.slide-overlay.active .certs-label {
+    transition-delay: 2.15s;
+}
+
+.slide-overlay.active .cert-list {
+    transition-delay: 2.3s;
+}
+
+/* ── LEADERSHIP ── */
+.slide-overlay.active .leadership-headline {
+    transition-delay: 2.0s;
+}
+
+.slide-overlay.active .achievement-badge {
+    transition-delay: 2.2s;
+}
+
+.slide-overlay.active .roles-list {
+    transition-delay: 2.4s;
+}
+
+/* ── CONTACT ── */
+.slide-overlay.active .contact-label {
+    transition-delay: 2.0s;
+}
+
+.slide-overlay.active .contact-headline {
+    transition-delay: 2.15s;
+}
+
+.slide-overlay.active .contact-subtext {
+    transition-delay: 2.35s;
+}
+
+.slide-overlay.active .contact-links {
+    transition-delay: 2.5s;
+}
+
+.slide-overlay.active .contact-location {
+    transition-delay: 2.65s;
+}
+
+/* ════════════════════════════════════════
+   GLASS PANEL — TEXT BRIGHTNESS BOOST
+   Ensures all text inside a glass panel is
+   crisp white/light regardless of the bg.
+   ════════════════════════════════════════ */
+.glass-panel .about-headline,
+.glass-panel .skills-headline,
+.glass-panel .leadership-headline,
+.glass-panel .projects-headline {
+    color: #ffffff;
+    text-shadow: 0 1px 20px rgba(0, 0, 0, 0.5);
+}
+
+.glass-panel .about-bio,
+.glass-panel .role-desc,
+.glass-panel .project-desc {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.glass-panel .overlay-eyebrow,
+.glass-panel .projects-count,
+.glass-panel .certs-label,
+.glass-panel .edu-meta,
+.glass-panel .role-period,
+.glass-panel .role-org,
+.glass-panel .project-tagline,
+.glass-panel .cert-issuer,
+.glass-panel .skill-category-name {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.glass-panel .edu-degree,
+.glass-panel .role-title,
+.glass-panel .project-name,
+.glass-panel .cert-name,
+.glass-panel .stat-value {
+    color: #ffffff;
+}
+
+.glass-panel .stat-label {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.glass-panel .skill-pill {
+    color: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.glass-panel .skill-pill:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.glass-panel .overlay-link {
+    color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.glass-panel .overlay-link:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Project cards inside glass panel — remove their own bg
+   since the panel already provides the dark backdrop */
+.glass-panel .project-card {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel .project-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Cert items inside glass panel */
+.glass-panel .cert-item {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel .cert-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Dividers inside glass panel */
+.glass-panel .edu-item,
+.glass-panel .skill-category,
+.glass-panel .role-item {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Stats grid inside glass panel — remove black bg,
+   let the glass show through each cell */
+.glass-panel.about-right {
+    background: rgba(0, 0, 0, 0.45);
+    gap: 1px;
+}
+
+.glass-panel.about-right .stat-cell {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* ════════════════════════════════════════
+   DEPLOYMENT FIXES — paste at the very
+   bottom of overlay.css
+   Fixes: card overflow into nav/header,
+   panel sizing on deployed viewport.
+   ════════════════════════════════════════ */
+
+/* ── Safe area: overlays never bleed into
+   the 80px nav bar or 40px top bar ── */
+.slide-overlay {
+    max-height: 100vh;
+    overflow: hidden;
+    /* Keep content between help bar and nav */
+    padding-top: max(var(--spacing-md, 24px), 50px) !important;
+    padding-bottom: max(var(--spacing-md, 24px), 90px) !important;
+}
+
+/* ── All glass panels: scrollable if too tall ── */
+.glass-panel {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+/* ── Hide scrollbar visually but keep scroll ── */
+.glass-panel::-webkit-scrollbar,
+.about-left::-webkit-scrollbar,
+.skills-left::-webkit-scrollbar,
+.skills-right::-webkit-scrollbar,
+.projects-right::-webkit-scrollbar,
+.leadership-left::-webkit-scrollbar {
+    width: 3px;
+}
+
+.glass-panel::-webkit-scrollbar-thumb,
+.about-left::-webkit-scrollbar-thumb,
+.skills-left::-webkit-scrollbar-thumb,
+.skills-right::-webkit-scrollbar-thumb,
+.projects-right::-webkit-scrollbar-thumb,
+.leadership-left::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 2px;
+}
+
+/* ── HERO ── */
+.overlay--hero {
+    padding-bottom: 100px !important;
+}
+
+/* ── ABOUT ── */
+.about-left {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+.about-right {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+/* ── PROJECTS: vertical headline must not
+   overflow the bottom of the screen ── */
+.projects-left {
+    max-height: calc(100vh - 160px);
+    overflow: hidden;
+    justify-content: flex-end;
+}
+
+.projects-headline {
+    /* Clamp the rotated heading size so it
+       fits on any deployed viewport height */
+    font-size: clamp(56px, 10vh, 130px) !important;
+    max-height: calc(100vh - 220px);
+    overflow: hidden;
+}
+
+.projects-right {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+/* ── SKILLS ── */
+.overlay--skills {
+    align-items: flex-start;
+    overflow: hidden;
+    padding-top: max(24px, 50px) !important;
+    padding-bottom: max(24px, 90px) !important;
+}
+
+.skills-left {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+.skills-right {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+/* ── LEADERSHIP ── */
+.leadership-left {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+.leadership-right {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+/* ── CONTACT ── */
+.overlay--contact {
+    padding-bottom: 100px !important;
+}
