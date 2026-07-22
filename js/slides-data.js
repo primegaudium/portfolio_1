@@ -76,8 +76,8 @@ export const slides = [
                 {
                     name: "Argos",
                     tagline: "Competitive Live Debate Platform",
-                    description: "Full-stack debate platform with 2–5 round competitive matches, AI evaluation across 4 scoring dimensions and 10 logical-fallacy detections. 15+ API routes, 8 DB tables, real-time multiplayer sync, Google OAuth, and Elo-based ranked matchmaking with daily AI-generated topics.",
-                    tech: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Drizzle ORM", "Gemini AI", "TailwindCSS", "Vercel"],
+                    description: "Full-stack debate platform where two players argue timed rounds while an AI judge scores each argument across 4 dimensions and flags any of 10 logical fallacies in real time. ~25 API routes, 25+ Supabase migrations, Elo-based ranked matchmaking, live spectating, audience voting, and Realtime score sync — instrumented with Sentry/PostHog and tested via Vitest in a GitLab CI pipeline.",
+                    tech: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Drizzle ORM", "Gemini AI", "TailwindCSS", "shadcn/ui", "Vercel"],
                     url: "https://argos-indol.vercel.app",
                     highlight: true
                 },
@@ -142,6 +142,7 @@ export const slides = [
                         { name: "FastAPI", icon: "fastapi" },
                         { name: "Flask", icon: "flask" },
                         { name: "TailwindCSS", icon: "tailwindcss" },
+                        { name: "shadcn/ui", icon: "shadcnui" },
                     ]
                 },
                 {
@@ -157,10 +158,14 @@ export const slides = [
                     skills: [
                         { name: "Git", icon: "git" },
                         { name: "GitHub", icon: "github" },
+                        { name: "GitLab CI/CD", icon: "gitlab" },
+                        { name: "Vitest", icon: "vitest" },
                         { name: "AWS", icon: null },
                         { name: "Vercel", icon: "vercel" },
                         { name: "Railway", icon: "railway" },
                         { name: "Google Cloud", icon: "googlecloud" },
+                        { name: "Sentry", icon: "sentry" },
+                        { name: "PostHog", icon: "posthog" },
                         { name: "N8N", icon: "n8n" },
                     ]
                 },
@@ -169,8 +174,8 @@ export const slides = [
                     skills: [
                         { name: "Machine Learning", icon: null },
                         { name: "NLP", icon: null },
+                        { name: "Google Gemini API", icon: "googlegemini" },
                         { name: "OpenAI API", icon: "openai" },
-                        { name: "Google API", icon: "google" },
                         { name: "Prompt Engineering", icon: null },
                     ]
                 }
@@ -178,12 +183,15 @@ export const slides = [
 
             certifications: [
                 { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", icon: null },
+                { name: "SAP Generative AI Developer", issuer: "SAP", icon: "sap" },
+                { name: "Data Analysis in R", issuer: "DataCamp", icon: "datacamp" },
+                { name: "MERN Full Stack", issuer: "Ethnus", icon: null },
                 { name: "Oracle OCI Generative AI Professional", issuer: "Oracle", icon: null },
                 { name: "Oracle Certified Foundations Associate", issuer: "Oracle", icon: null },
-                { name: "MERN Full Stack", issuer: "Ethnus", icon: null },
-                { name: "Data Analysis in R", issuer: "DataCamp", icon: "datacamp" },
                 { name: "JavaScript Essentials", issuer: "Cisco", icon: "cisco" },
                 { name: "Networking Essentials", issuer: "Cisco", icon: "cisco" },
+                { name: "Claude 101", issuer: "Anthropic", icon: "anthropic" },
+                { name: "AI Fluency: Framework & Foundations", issuer: "Anthropic", icon: "anthropic" },
             ],
         }
     },
