@@ -586,6 +586,52 @@ html {
     flex-shrink: 0 !important;
 }
 
+/* ── FIX (critical): the blanket ".glass-panel { overflow: visible }"
+   rule above was cancelling skills-right's scroll, so all 10 cert
+   cards spilled straight through the box and into the bottom nav.
+   Restore proper clipped scrolling, matching skills-left. ── */
+.skills-right {
+    max-height: calc(100vh - 140px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent !important;
+    padding-right: 6px !important;
+    position: relative !important;
+}
+
+.skills-right::-webkit-scrollbar {
+    width: 3px;
+}
+
+.skills-right::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.skills-right::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+}
+
+/* Soft fade at the bottom edge hints that the cert list scrolls,
+   instead of the list just cutting off abruptly. */
+.overlay--skills {
+    position: relative !important;
+}
+
+.skills-right::after {
+    content: "" !important;
+    position: sticky !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    display: block !important;
+    height: 28px !important;
+    margin-top: -28px !important;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.55)) !important;
+    pointer-events: none !important;
+}
+
 /* ── FIX 2: Null-icon placeholder — same size as a real icon
    so pill text stays vertically aligned. ── */
 .skill-icon-placeholder {
